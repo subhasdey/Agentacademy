@@ -9,18 +9,19 @@ const stats = [
 ];
 
 const StatsSection = () => (
-  <section className="bg-black py-24">
+  <section className="bg-black py-16 md:py-24">
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
-      <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-y md:divide-y-0 divide-white/[0.08] border border-white/[0.08]">
-        {stats.map(s => {
+      <div className="grid grid-cols-2 md:grid-cols-5 border border-white/[0.08]">
+        {stats.map((s, i) => {
           const Icon = s.icon;
           return (
-            <div key={s.label} className="p-14 text-center">
-              <div className="flex justify-center mb-4">
-                <Icon size={22} className="text-white/25" strokeWidth={1.5} />
+            <div key={s.label} className="p-8 md:p-14 text-center border-r border-b border-white/[0.08] last:border-r-0"
+              style={{ borderRight: i === 4 ? 'none' : undefined }}>
+              <div className="flex justify-center mb-3">
+                <Icon size={20} className="text-white/25" strokeWidth={1.5} />
               </div>
-              <div className="font-display font-black text-white leading-none mb-3" style={{ fontSize: '52px' }}>{s.num}</div>
-              <div className="text-[12px] text-white/40 uppercase tracking-widest" style={{ fontFamily: 'Inter, sans-serif' }}>{s.label}</div>
+              <div className="font-display font-black text-white leading-none mb-2" style={{ fontSize: 'clamp(32px,4vw,52px)' }}>{s.num}</div>
+              <div className="text-[11px] text-white/40 uppercase tracking-widest" style={{ fontFamily: 'Inter, sans-serif' }}>{s.label}</div>
             </div>
           );
         })}

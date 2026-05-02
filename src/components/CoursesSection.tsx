@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Grid, Zap, Bot, Database, Monitor, Star, ChevronRight } from "lucide-react";
+import { Grid, Zap, Bot, Database, Monitor, Star } from "lucide-react";
 
 const modules = [
   { week:'Week 1–2', icon: Grid, title:'Foundations of Generative AI', desc:'LLMs, transformers, attention mechanisms, tokenisation and embeddings. Understanding what powers GPT-4, Claude, and Gemini from first principles.', tags:['Transformers','Embeddings','Tokenisation'] },
@@ -13,14 +13,14 @@ const modules = [
 const CoursesSection = () => {
   const [hovered, setHovered] = useState<number|null>(null);
   return (
-    <section id="courses" className="py-28 bg-white">
+    <section id="courses" className="py-20 md:py-28 bg-white">
       <div className="max-w-[1240px] mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-2 gap-20 mb-20 items-end">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-20 mb-16 md:mb-20 items-end">
           <div>
             <span className="section-label mb-3">03 — Curriculum</span>
-            <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>What You Will Learn</h2>
+            <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>What You Will Learn</h2>
           </div>
-          <p className="text-gray-500 text-[16px] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-gray-500 text-[15px] md:text-[16px] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>
             A 12-week programme designed to take you from GenAI fundamentals to building and shipping production-grade agentic systems. Every module includes live sessions, hands-on labs, and a milestone project.
           </p>
         </div>
@@ -30,21 +30,40 @@ const CoursesSection = () => {
             const Icon = m.icon;
             return (
               <div key={i}
-                className="grid grid-cols-[140px_48px_1fr_auto] gap-10 items-start py-9 border-b border-gray-200 transition-colors cursor-pointer"
-                style={{ background: hovered === i ? '#f9f9f9' : 'transparent', margin: hovered === i ? '0 -48px' : '0', padding: hovered === i ? '36px 48px' : '36px 0' }}
+                className="border-b border-gray-200 transition-colors cursor-pointer py-7 md:py-9"
+                style={{ background: hovered === i ? '#f9f9f9' : 'transparent' }}
                 onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}>
-                <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 pt-1" style={{ fontFamily: 'Inter, sans-serif' }}>{m.week}</div>
-                <div className="w-10 h-10 border border-gray-200 flex items-center justify-center flex-shrink-0">
-                  <Icon size={17} className="text-gray-600" strokeWidth={1.5} />
+                {/* Mobile layout */}
+                <div className="flex items-start gap-4 md:hidden px-0">
+                  <div className="w-9 h-9 border border-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icon size={15} className="text-gray-600" strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>{m.week}</div>
+                    <div className="font-display font-bold text-[18px] text-black mb-1.5">{m.title}</div>
+                    <div className="text-gray-500 text-[13px] leading-[1.7]" style={{ fontFamily: 'Inter, sans-serif' }}>{m.desc}</div>
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {m.tags.map(t => (
+                        <span key={t} className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 bg-gray-100 px-2 py-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>{t}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-display font-bold text-[22px] text-black mb-2">{m.title}</div>
-                  <div className="text-gray-500 text-[14px] leading-[1.7]" style={{ fontFamily: 'Inter, sans-serif' }}>{m.desc}</div>
-                </div>
-                <div className="hidden md:flex flex-col gap-1.5 items-end">
-                  {m.tags.map(t => (
-                    <span key={t} className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 bg-gray-100 px-2.5 py-1" style={{ fontFamily: 'Inter, sans-serif' }}>{t}</span>
-                  ))}
+                {/* Desktop layout */}
+                <div className="hidden md:grid md:grid-cols-[140px_48px_1fr_auto] md:gap-10 md:items-start">
+                  <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-gray-400 pt-1" style={{ fontFamily: 'Inter, sans-serif' }}>{m.week}</div>
+                  <div className="w-10 h-10 border border-gray-200 flex items-center justify-center flex-shrink-0">
+                    <Icon size={17} className="text-gray-600" strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <div className="font-display font-bold text-[22px] text-black mb-2">{m.title}</div>
+                    <div className="text-gray-500 text-[14px] leading-[1.7]" style={{ fontFamily: 'Inter, sans-serif' }}>{m.desc}</div>
+                  </div>
+                  <div className="flex flex-col gap-1.5 items-end">
+                    {m.tags.map(t => (
+                      <span key={t} className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 bg-gray-100 px-2.5 py-1" style={{ fontFamily: 'Inter, sans-serif' }}>{t}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             );
