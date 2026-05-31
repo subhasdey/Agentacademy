@@ -3,7 +3,7 @@ import { Play, Search, ShoppingCart, TrendingUp } from "lucide-react";
 const demos = [
   { icon: Search, level:'Intermediate', dur:'18 min', title:'Autonomous Research Agent', desc:'A 3-agent pipeline that researches any topic, synthesises findings, and produces a structured report in under 2 minutes.', bg:'from-gray-900 to-gray-800' },
   { icon: ShoppingCart, level:'Advanced', dur:'24 min', title:'E-Commerce Customer Service Agent', desc:'Intelligent customer service agent with tool-use, order lookup, refund processing, and escalation to human agents.', bg:'from-black to-gray-800' },
-  { icon: TrendingUp, level:'Expert', dur:'32 min', title:'Financial Analysis Pipeline', desc:'Multi-agent system monitoring stock data, generating daily briefings, and flagging anomalies — fully automated on cloud.', bg:'from-gray-900 to-black' },
+  { icon: TrendingUp, level:'Expert', dur:'32 min', title:'Financial Analysis Pipeline', desc:'Multi-agent system monitoring stock data, generating daily briefings, and flagging anomalies — running 100% locally with Ollama.', bg:'from-gray-900 to-black' },
 ];
 
 const DemosSection = () => (

@@ -2,10 +2,10 @@ import { Users, Briefcase, BookOpen, Award } from "lucide-react";
 
 const partners = ['Anthropic','Microsoft','Google DeepMind','Amazon','Meta'];
 const collabs = [
-  { icon: Users, title:'Guest Lectures', desc:'Weekly sessions from engineers at Anthropic, Google, and leading AI startups sharing real patterns from production deployments.' },
-  { icon: Briefcase, title:'Hiring Pipeline', desc:'Top graduates are recommended directly to partner companies. 340+ alumni placed in AI roles in the past six months alone.' },
-  { icon: BookOpen, title:'Real-World Projects', desc:'Capstone projects are co-sponsored by partners — you build something real, they evaluate it and may adopt it into production.' },
-  { icon: Award, title:'Co-Certified', desc:'Certificates are co-signed by AgentAcademy and the Anthropic Education Programme — recognised by 200+ employers globally.' },
+  { icon: Users, title:'Guest Lectures', desc:'Sessions from engineers at Anthropic, Google, and leading AI startups sharing real patterns from production deployments.' },
+  { icon: Briefcase, title:'Career Support', desc:'We connect top graduates with partner companies actively hiring agentic AI engineers.' },
+  { icon: BookOpen, title:'Real-World Projects', desc:'Build actual agents on Day 4 — a supervisor-worker multi-agent pipeline you can demo and add to your portfolio.' },
+  { icon: Award, title:'Certificate of Completion', desc:'Issued by AgentAcademy upon completing all 4 days and the final project demo.' },
 ];
 
 const IndustrySection = () => (
@@ -17,7 +17,7 @@ const IndustrySection = () => (
           <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>Built With Industry. For Industry.</h2>
         </div>
         <p className="text-gray-500 text-[15px] md:text-[16px] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>
-          Our curriculum is co-designed with leading companies actively hiring agentic AI engineers. Guest lectures, real projects, and direct placement pipelines for graduating cohorts.
+          Our curriculum is aligned with what leading companies look for in agentic AI engineers. Guest lectures, real projects, and a certificate you can put on your resume.
         </p>
       </div>
       <div className="border-t border-b border-gray-200 py-8 flex flex-wrap gap-8 md:gap-12 items-center mb-16 md:mb-20">

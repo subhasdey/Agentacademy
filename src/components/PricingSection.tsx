@@ -31,7 +31,7 @@ const plans = [
     name: 'Team / Group', desc: '3+ people from the same company or school — custom group pricing.',
     price: 'Custom', period: 'Contact for group rate', featured: false,
     features: [
-      { text: 'Up to 10 participants', on: true },
+      { text: 'Up to 20 participants', on: true },
       { text: 'Dedicated session time slot', on: true },
       { text: 'Custom labs for your use case', on: true },
       { text: 'Private cohort environment', on: true },

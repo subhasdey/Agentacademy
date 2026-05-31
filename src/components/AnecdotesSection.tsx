@@ -15,7 +15,7 @@ const AnecdotesSection = () => (
           <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>Real Outcomes.</h2>
         </div>
         <p className="text-gray-500 text-[16px] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>
-          Over 12,000 engineers, analysts, and developers have transformed their careers through AgentAcademy. These are their stories, in their own words.
+          25+ students have already built working AI agents through AgentAcademy. These are their stories, in their own words.
         </p>
       </div>
       <div className="grid md:grid-cols-3 gap-0.5 bg-gray-200">

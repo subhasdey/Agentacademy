@@ -3,7 +3,7 @@ import { Users, Clock, Code, Cpu, Star } from "lucide-react";
 const stats = [
   { icon: Users, num: '20', label: 'Seats Per Session' },
   { icon: Clock, num: '8 hrs', label: 'Total Instruction' },
-  { icon: Code, num: '4', label: 'Hands-On Labs / Day' },
+  { icon: Code, num: '3', label: 'Hands-On Labs / Day' },
   { icon: Cpu, num: '100%', label: 'Local — No Cloud API' },
   { icon: Star, num: 'July', label: '2026 — Two Sessions' },
 ];

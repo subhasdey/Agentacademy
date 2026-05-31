@@ -2,7 +2,7 @@ import { Mail, MessageSquare, Phone, Briefcase } from "lucide-react";
 
 const methods = [
   { icon: Mail, title:'Email', desc:'hello@agentacademy.ai' },
-  { icon: MessageSquare, title:'Discord Community', desc:'Join 12,000+ students in our active server' },
+  { icon: MessageSquare, title:'Discord Community', desc:'Join our growing student community server' },
   { icon: Phone, title:'Schedule a Call', desc:'Book a 15-min intro call with an advisor' },
   { icon: Briefcase, title:'Enterprise Sales', desc:'enterprise@agentacademy.ai' },
 ];

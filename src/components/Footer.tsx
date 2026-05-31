@@ -17,9 +17,9 @@ const Footer = () => (
           </p>
         </div>
         {[
-          { h:'Learn', links:[['Courses','/#courses'],['Demos','/#demos'],['Blog','/#blog'],['Free Resources','#']] },
-          { h:'Company', links:[['About','/#about'],['Industry Partners','/#industry'],['Careers','#'],['Press','#']] },
-          { h:'Support', links:[['Contact','/#contact'],['FAQ','#'],['Discord','#'],['Privacy Policy','#']] },
+          { h:'Learn', links:[['Courses','/#courses'],['Demos','/#demos'],['Blog','/#blog']] },
+          { h:'Company', links:[['About','/#about'],['Industry Partners','/#industry']] },
+          { h:'Support', links:[['Contact','/#contact'],['Register','/#register']] },
         ].map(col => (
           <div key={col.h}>
             <h4 className="text-[10px] font-bold tracking-[0.16em] uppercase text-white/30 mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>{col.h}</h4>
