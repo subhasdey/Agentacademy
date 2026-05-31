@@ -12,7 +12,6 @@ const CheckoutSection = () => (
           </p>
           <div className="bg-white border border-gray-200 p-7">
             {[
-              ['Summer Camp — Both Sessions (8 days)', '$700.00'],
               ['Session 1 only (Jul 13–16)', '$400.00'],
               ['Session 2 only (Jul 27–30)', '$400.00'],
               ['All lab materials & code', 'Included'],
