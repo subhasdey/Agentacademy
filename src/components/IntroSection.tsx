@@ -21,22 +21,43 @@ const IntroSection = () => (
           <a href="#courses" className="btn-outline-dark">Explore Curriculum</a>
         </div>
         <div className="pt-12">
-          <div className="bg-gray-100 h-[440px] flex items-center justify-center relative overflow-hidden">
-            <svg width="160" height="160" viewBox="0 0 200 200" fill="none" stroke="#d1d5db" strokeWidth="1">
-              <rect x="60" y="60" width="80" height="80" rx="2"/>
-              <circle cx="100" cy="100" r="20"/>
-              <line x1="100" y1="20" x2="100" y2="60"/>
-              <line x1="100" y1="140" x2="100" y2="180"/>
-              <line x1="20" y1="100" x2="60" y2="100"/>
-              <line x1="140" y1="100" x2="180" y2="100"/>
-              <circle cx="100" cy="20" r="5"/><circle cx="100" cy="180" r="5"/>
-              <circle cx="20" cy="100" r="5"/><circle cx="180" cy="100" r="5"/>
-              <line x1="34" y1="34" x2="60" y2="60"/>
-              <line x1="166" y1="34" x2="140" y2="60"/>
-              <line x1="34" y1="166" x2="60" y2="140"/>
-              <line x1="166" y1="166" x2="140" y2="140"/>
-              <circle cx="34" cy="34" r="4"/><circle cx="166" cy="34" r="4"/>
-              <circle cx="34" cy="166" r="4"/><circle cx="166" cy="166" r="4"/>
+          <div className="bg-gray-100 h-[440px] flex items-center justify-center relative overflow-hidden p-8">
+            <svg width="100%" height="100%" viewBox="0 0 480 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Dashed connector lines — supervisor to workers */}
+              <line x1="240" y1="88" x2="80" y2="210" stroke="#d1d5db" strokeWidth="1.5" strokeDasharray="5 4"/>
+              <line x1="240" y1="88" x2="240" y2="210" stroke="#d1d5db" strokeWidth="1.5" strokeDasharray="5 4"/>
+              <line x1="240" y1="88" x2="400" y2="210" stroke="#d1d5db" strokeWidth="1.5" strokeDasharray="5 4"/>
+              {/* MCP labels on connectors */}
+              <text x="148" y="158" textAnchor="middle" fill="#9ca3af" fontSize="9" fontFamily="Inter,sans-serif" letterSpacing="0.08em">MCP</text>
+              <text x="248" y="168" textAnchor="middle" fill="#9ca3af" fontSize="9" fontFamily="Inter,sans-serif" letterSpacing="0.08em">MCP</text>
+              <text x="334" y="158" textAnchor="middle" fill="#9ca3af" fontSize="9" fontFamily="Inter,sans-serif" letterSpacing="0.08em">MCP</text>
+              {/* Worker to SQLite lines */}
+              <line x1="80" y1="272" x2="190" y2="320" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
+              <line x1="240" y1="272" x2="240" y2="320" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
+              <line x1="400" y1="272" x2="290" y2="320" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
+              {/* Supervisor node */}
+              <rect x="140" y="28" width="200" height="60" fill="#0a0a0a"/>
+              <text x="240" y="54" textAnchor="middle" fill="white" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="700" letterSpacing="0.12em">SUPERVISOR</text>
+              <text x="240" y="72" textAnchor="middle" fill="rgba(255,255,255,0.45)" fontSize="9" fontFamily="Inter,sans-serif">Orchestrator Agent</text>
+              {/* Worker: Research */}
+              <rect x="20" y="210" width="120" height="62" fill="white" stroke="#e5e7eb" strokeWidth="1.5"/>
+              <text x="80" y="237" textAnchor="middle" fill="#0a0a0a" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="700" letterSpacing="0.1em">RESEARCH</text>
+              <text x="80" y="253" textAnchor="middle" fill="#9ca3af" fontSize="8.5" fontFamily="Inter,sans-serif">Worker Agent</text>
+              <text x="80" y="265" textAnchor="middle" fill="#c4b5fd" fontSize="7.5" fontFamily="Inter,sans-serif">web · files · SQLite</text>
+              {/* Worker: Writer */}
+              <rect x="180" y="210" width="120" height="62" fill="white" stroke="#a78bfa" strokeWidth="1.5"/>
+              <text x="240" y="237" textAnchor="middle" fill="#0a0a0a" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="700" letterSpacing="0.1em">WRITER</text>
+              <text x="240" y="253" textAnchor="middle" fill="#9ca3af" fontSize="8.5" fontFamily="Inter,sans-serif">Worker Agent</text>
+              <text x="240" y="265" textAnchor="middle" fill="#c4b5fd" fontSize="7.5" fontFamily="Inter,sans-serif">draft · summarise · format</text>
+              {/* Worker: Analyst */}
+              <rect x="340" y="210" width="120" height="62" fill="white" stroke="#e5e7eb" strokeWidth="1.5"/>
+              <text x="400" y="237" textAnchor="middle" fill="#0a0a0a" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="700" letterSpacing="0.1em">ANALYST</text>
+              <text x="400" y="253" textAnchor="middle" fill="#9ca3af" fontSize="8.5" fontFamily="Inter,sans-serif">Worker Agent</text>
+              <text x="400" y="265" textAnchor="middle" fill="#c4b5fd" fontSize="7.5" fontFamily="Inter,sans-serif">score · rank · report</text>
+              {/* SQLite shared memory */}
+              <rect x="170" y="320" width="140" height="48" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
+              <text x="240" y="342" textAnchor="middle" fill="#6b7280" fontSize="9.5" fontFamily="Inter,sans-serif" fontWeight="600" letterSpacing="0.06em">SQLite Memory</text>
+              <text x="240" y="358" textAnchor="middle" fill="#9ca3af" fontSize="8" fontFamily="Inter,sans-serif">Shared Agent State</text>
             </svg>
           </div>
           <p className="text-[12px] text-gray-400 uppercase tracking-widest mt-4" style={{ fontFamily: 'Inter, sans-serif' }}>
