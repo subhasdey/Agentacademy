@@ -18,7 +18,7 @@ const HeroSection = () => (
       <div className="mb-10">
         <span className="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-[12px] font-medium text-white/70 uppercase tracking-widest" style={{ fontFamily: 'Inter, sans-serif' }}>
           <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
-          Summer 2025 — Now Enrolling · Limited Seats
+          Summer 2026 — Now Enrolling · Limited Seats
         </span>
       </div>
 
@@ -31,7 +31,7 @@ const HeroSection = () => (
 
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
         <p className="text-white/55 text-[16px] leading-[1.8] max-w-[480px]" style={{ fontFamily: 'Inter, sans-serif' }}>
-          A hands-on summer camp for anyone who wants to build AI agents from scratch — using Python, Ollama (local LLMs), and SQLite. No cloud API required. Two sessions in July 2025, 5 PM – 7 PM daily.
+          A hands-on summer camp for anyone who wants to build AI agents from scratch — using Python, Ollama (local LLMs), and SQLite. No cloud API required. Two sessions in July 2026, 5 PM – 7 PM daily.
         </p>
         <div className="flex flex-wrap gap-4 flex-shrink-0">
           <a href="#courses" className="btn-outline-white">View Curriculum</a>
@@ -42,7 +42,7 @@ const HeroSection = () => (
       </div>
 
       <div className="flex flex-wrap gap-10 mt-14 pt-10 border-t border-white/10">
-        {[['4 Days','Per Session'],['5 PM – 7 PM','Daily PST'],['$400','Per Session'],['2 Sessions','July 2025'],['100%','Hands-On']].map(([v,l])=>(
+        {[['4 Days','Per Session'],['5 PM – 7 PM','Daily PST'],['$400','Per Session'],['2 Sessions','July 2026'],['100%','Hands-On']].map(([v,l])=>(
           <div key={l} style={{ perspective: '400px' }}>
             <div className="transition-transform duration-300" style={{ transformStyle: 'preserve-3d' }}
               onMouseEnter={e => (e.currentTarget.style.transform = 'rotateY(-8deg) rotateX(6deg)')}

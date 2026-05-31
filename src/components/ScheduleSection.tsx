@@ -1,19 +1,19 @@
 const sessions = [
   {
-    label: 'SESSION 1', month: 'JUL', days: '14–17',
+    label: 'SESSION 1', month: 'JUL', days: '13–16',
     title: 'July Summer Camp — Week 2',
-    meta: 'Monday – Thursday · July 14, 15, 16, 17 · 5:00 PM – 7:00 PM PST · 4 days',
-    tags: ['Live', 'PST', 'Hands-On', 'July 2025'],
-    seats: '12 seats available', urgent: true,
-    highlight: 'Mon Jul 14 → Thu Jul 17',
+    meta: 'Monday – Thursday · July 13, 14, 15, 16 · 5:00 PM – 7:00 PM PST · 4 days',
+    tags: ['Live', 'PST', 'Hands-On', 'July 2026'],
+    seats: '20 seats available', urgent: true,
+    highlight: 'Mon Jul 13 → Thu Jul 16',
   },
   {
-    label: 'SESSION 2', month: 'JUL', days: '28–31',
+    label: 'SESSION 2', month: 'JUL', days: '27–30',
     title: 'July Summer Camp — Week 4',
-    meta: 'Monday – Thursday · July 28, 29, 30, 31 · 5:00 PM – 7:00 PM PST · 4 days',
-    tags: ['Live', 'PST', 'Hands-On', 'July 2025'],
-    seats: '12 seats available', urgent: false,
-    highlight: 'Mon Jul 28 → Thu Jul 31',
+    meta: 'Monday – Thursday · July 27, 28, 29, 30 · 5:00 PM – 7:00 PM PST · 4 days',
+    tags: ['Live', 'PST', 'Hands-On', 'July 2026'],
+    seats: '20 seats available', urgent: false,
+    highlight: 'Mon Jul 27 → Thu Jul 30',
   },
 ];
 
@@ -29,7 +29,7 @@ const ScheduleSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="mb-16">
         <span className="section-label mb-3">10 — Schedule</span>
-        <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>Two Sessions. July 2025.</h2>
+        <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>Two Sessions. July 2026.</h2>
         <p className="text-gray-500 text-[15px] mt-3 max-w-[560px]" style={{ fontFamily: 'Inter, sans-serif' }}>
           Each session runs 4 evenings, Monday through Thursday, 5–7 PM PST. Pick either or join both.
         </p>

@@ -7,10 +7,10 @@ const RegisterSection = () => (
         <div>
           <span className="section-label mb-3">12 — Registration</span>
           <h2 className="font-display font-bold text-black leading-[1.15] mb-6" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>
-            Reserve Your Seat.<br />July 2025.
+            Reserve Your Seat.<br />July 2026.
           </h2>
           <p className="text-gray-500 text-[16px] leading-[1.8] mb-10" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Fill out the form below to secure your seat in the Summer AI Agent Camp. Choose Session 1 (Jul 14–17), Session 2 (Jul 28–31), or both. We'll confirm within 24 hours.
+            Fill out the form below to secure your seat in the Summer AI Agent Camp. Choose Session 1 (Jul 13–16), Session 2 (Jul 27–30), or both. We'll confirm within 24 hours.
           </p>
           <div className="space-y-5">
             {[
@@ -32,7 +32,7 @@ const RegisterSection = () => (
           <div className="w-16 h-16 bg-black flex items-center justify-center mx-auto mb-7">
             <FileText size={26} className="text-white" strokeWidth={1.5} />
           </div>
-          <h3 className="font-display font-bold text-[24px] mb-3">Summer AI Agent Camp — July 2025</h3>
+          <h3 className="font-display font-bold text-[24px] mb-3">Summer AI Agent Camp — July 2026</h3>
           <p className="text-gray-500 text-[14px] leading-[1.7] mb-10" style={{ fontFamily: 'Inter, sans-serif' }}>
             Complete the Google Form to register. Select your preferred session(s), provide your background, and we'll send a payment link and setup guide.
           </p>
