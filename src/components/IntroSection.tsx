@@ -78,6 +78,31 @@ const IntroSection = () => (
           </p>
         </div>
       </div>
+      {/* Who is this for */}
+      <div className="mt-20 pt-16 border-t border-gray-100">
+        <div className="mb-10">
+          <span className="section-label mb-3">Who Is This For?</span>
+          <h3 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(22px,3vw,36px)' }}>Every Role Has Something to Gain.</h3>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-gray-200">
+          {[
+            { role: 'Student', benefit: 'Build a real AI project for your portfolio before you graduate. Agents are the most hirable skill in tech right now.' },
+            { role: 'Teacher / Educator', benefit: 'Learn how to explain and demo AI agents to your students with working examples, not slides.' },
+            { role: 'Marketer', benefit: 'Build agents that draft copy, research competitors, and summarise reports — freeing hours every week.' },
+            { role: 'Financial Analyst', benefit: 'Automate data gathering and briefing generation with a local agent that reads your files and SQLite databases.' },
+            { role: 'Program Manager', benefit: 'Understand what AI agents can and cannot do so you can scope, plan, and communicate projects accurately.' },
+            { role: 'Product Manager', benefit: 'Stop relying on engineers to prototype. Build a working agent yourself and bring it to your next sprint.' },
+            { role: 'Engineer', benefit: 'Go beyond API calls. Learn multi-agent architecture, MCP protocol, and tool-use patterns used in production.' },
+            { role: 'Data Analyst', benefit: 'Chain agents to pull, clean, and summarise data from SQLite automatically — no more repetitive queries.' },
+            { role: 'People Manager', benefit: 'Understand the technology your team is building so you can lead, review, and support AI projects with confidence.' },
+          ].map(p => (
+            <div key={p.role} className="bg-white p-7 md:p-8">
+              <div className="text-[10px] font-bold tracking-[0.16em] uppercase mb-3" style={{ fontFamily: 'Inter, sans-serif', color: '#a78bfa' }}>{p.role}</div>
+              <p className="text-gray-500 text-[13px] leading-[1.75]" style={{ fontFamily: 'Inter, sans-serif' }}>{p.benefit}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 );
