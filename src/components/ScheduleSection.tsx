@@ -1,8 +1,27 @@
-const cohorts = [
-  { month:'MAY', day:'5', title:'Spring Weekend Cohort', meta:'Saturdays & Sundays · 10:00 AM – 1:00 PM IST · 12 weeks', tags:['Weekend','IST / EST','Live'], seats:'8 seats remaining', urgent:true },
-  { month:'MAY', day:'12', title:'Weekday Evening Cohort', meta:'Mon / Wed / Fri · 7:00 PM – 9:00 PM IST · 12 weeks', tags:['Weekday','IST','Live'], seats:'15 seats remaining', urgent:true },
-  { month:'JUN', day:'2', title:'Summer Intensive', meta:'Daily · 9:00 AM – 12:00 PM IST · 4 weeks accelerated', tags:['Intensive','4 Weeks','Live'], seats:'24 seats available', urgent:false },
-  { month:'ANY', day:'—', title:'Self-Paced Access', meta:'Start anytime · Work at your own pace · No live sessions', tags:['Self-Paced','Any Timezone','Async'], seats:'Always available', urgent:false },
+const sessions = [
+  {
+    label: 'SESSION 1', month: 'JUL', days: '14–17',
+    title: 'July Summer Camp — Week 2',
+    meta: 'Monday – Thursday · July 14, 15, 16, 17 · 5:00 PM – 7:00 PM PST · 4 days',
+    tags: ['Live', 'PST', 'Hands-On', 'July 2025'],
+    seats: '12 seats available', urgent: true,
+    highlight: 'Mon Jul 14 → Thu Jul 17',
+  },
+  {
+    label: 'SESSION 2', month: 'JUL', days: '28–31',
+    title: 'July Summer Camp — Week 4',
+    meta: 'Monday – Thursday · July 28, 29, 30, 31 · 5:00 PM – 7:00 PM PST · 4 days',
+    tags: ['Live', 'PST', 'Hands-On', 'July 2025'],
+    seats: '12 seats available', urgent: false,
+    highlight: 'Mon Jul 28 → Thu Jul 31',
+  },
+];
+
+const schedule = [
+  { day: 'Day 1 (Mon)', topic: 'AI & LLM Basics', sub: 'Python + Ollama setup, first LLM script, prompt engineering' },
+  { day: 'Day 2 (Tue)', topic: 'Agent & MCP Basics', sub: 'Agents, MCP protocol, tool-use, SQLite memory' },
+  { day: 'Day 3 (Wed)', topic: 'Agent Skill Creation', sub: 'Custom skills, NoSQL/SQLite queries, skill chaining' },
+  { day: 'Day 4 (Thu)', topic: 'Multi-Agent Project', sub: 'Build full multi-agent workflow, present demo' },
 ];
 
 const ScheduleSection = () => (
@@ -10,28 +29,72 @@ const ScheduleSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="mb-16">
         <span className="section-label mb-3">10 — Schedule</span>
-        <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>Upcoming Cohorts & Dates</h2>
+        <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>Two Sessions. July 2025.</h2>
+        <p className="text-gray-500 text-[15px] mt-3 max-w-[560px]" style={{ fontFamily: 'Inter, sans-serif' }}>
+          Each session runs 4 evenings, Monday through Thursday, 5–7 PM PST. Pick either or join both.
+        </p>
       </div>
-      <div className="grid md:grid-cols-2 gap-0.5 bg-gray-200">
-        {cohorts.map(c => (
-          <div key={c.title} className="bg-white p-10 hover:bg-gray-50 transition-colors cursor-pointer"
-            style={{ borderLeft: c.urgent ? '3px solid #0a0a0a' : '3px solid transparent' }}>
-            <div className="bg-black text-white inline-block px-5 py-3 mb-7 text-center">
-              <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-white/50 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>{c.month}</div>
-              <div className="font-display font-black text-white leading-none" style={{ fontSize: '36px' }}>{c.day}</div>
+
+      {/* Session Cards with 3D effect */}
+      <div className="grid md:grid-cols-2 gap-4 mb-16" style={{ perspective: '1000px' }}>
+        {sessions.map(s => (
+          <div key={s.title}
+            className="border-2 p-10 transition-all duration-300 cursor-pointer group"
+            style={{ borderColor: s.urgent ? '#a78bfa' : '#e5e7eb' }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.transform = 'rotateY(-5deg) rotateX(4deg) translateZ(12px)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '10px 14px 40px rgba(0,0,0,0.12)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.transform = 'none';
+              (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+            }}>
+            {/* Date block */}
+            <div className="flex items-start gap-6 mb-6">
+              <div className="text-white inline-block px-5 py-3 text-center flex-shrink-0"
+                style={{ background: s.urgent ? '#a78bfa' : '#0a0a0a' }}>
+                <div className="text-[10px] font-bold tracking-[0.16em] uppercase opacity-70 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>{s.month}</div>
+                <div className="font-display font-black leading-none" style={{ fontSize: '32px' }}>{s.days}</div>
+              </div>
+              <div>
+                <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ fontFamily: 'Inter, sans-serif', color: s.urgent ? '#a78bfa' : '#9ca3af' }}>{s.label}</div>
+                <h3 className="font-display font-bold text-[20px] text-black mb-1">{s.title}</h3>
+                <p className="text-gray-500 text-[13px]" style={{ fontFamily: 'Inter, sans-serif' }}>{s.meta}</p>
+              </div>
             </div>
-            <h3 className="font-display font-bold text-[22px] text-black mb-2.5">{c.title}</h3>
-            <p className="text-gray-500 text-[13px] leading-[1.6] mb-5" style={{ fontFamily: 'Inter, sans-serif' }}>{c.meta}</p>
             <div className="flex gap-2 flex-wrap mb-5">
-              {c.tags.map(t=>(
-                <span key={t} className="border border-gray-200 text-[10px] font-bold uppercase tracking-widest text-gray-500 px-3 py-1.5" style={{ fontFamily: 'Inter, sans-serif' }}>{t}</span>
+              {s.tags.map(t => (
+                <span key={t} className="border border-gray-200 text-[10px] font-bold uppercase tracking-widest text-gray-500 px-3 py-1.5"
+                  style={{ fontFamily: 'Inter, sans-serif' }}>{t}</span>
               ))}
             </div>
-            <div className="text-[12px] font-bold uppercase tracking-widest" style={{ fontFamily: 'Inter, sans-serif', color: c.urgent ? '#c0392b' : '#9ca3af' }}>
-              {c.seats}
+            <div className="flex items-center justify-between">
+              <div className="text-[12px] font-bold uppercase tracking-widest"
+                style={{ fontFamily: 'Inter, sans-serif', color: s.urgent ? '#7c3aed' : '#9ca3af' }}>{s.seats}</div>
+              <a href="#register" className="text-[11px] font-bold uppercase tracking-widest text-black border border-black px-4 py-2 hover:bg-black hover:text-white transition-colors"
+                style={{ fontFamily: 'Inter, sans-serif' }}>Reserve →</a>
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Daily breakdown */}
+      <div>
+        <div className="text-[11px] font-bold tracking-widest uppercase text-gray-400 mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>Daily Breakdown (same for both sessions)</div>
+        <div className="border-t border-gray-200">
+          {schedule.map((s, i) => (
+            <div key={i} className="border-b border-gray-200 py-5 grid md:grid-cols-[200px_1fr] gap-4">
+              <div className="text-[11px] font-bold tracking-[0.1em] uppercase text-gray-400 pt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>{s.day}</div>
+              <div>
+                <div className="font-display font-bold text-[17px] text-black mb-1">{s.topic}</div>
+                <div className="text-gray-500 text-[13px]" style={{ fontFamily: 'Inter, sans-serif' }}>{s.sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 px-6 py-4 border border-gray-200 bg-gray-50 text-[13px] text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <strong>Time:</strong> 5:00 PM – 7:00 PM Pacific (PST) &nbsp;·&nbsp; <strong>Format:</strong> Live virtual &nbsp;·&nbsp; <strong>Tools:</strong> Python, Ollama, SQLite &nbsp;·&nbsp; <strong>Price:</strong> $400 per session
+        </div>
       </div>
     </div>
   </section>

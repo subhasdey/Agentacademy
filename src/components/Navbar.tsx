@@ -25,7 +25,7 @@ const Navbar = () => {
           <div className="w-8 h-8 bg-black flex items-center justify-center">
             <Layers size={16} className="text-white" />
           </div>
-          <span className="font-display font-bold text-[17px] text-black tracking-tight">AgentAcademy</span>
+          <span className="font-display font-bold text-[17px] text-black tracking-tight">AI Agent Camp</span>
         </Link>
 
         <div className="hidden lg:flex items-center gap-8">

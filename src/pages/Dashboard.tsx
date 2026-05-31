@@ -6,35 +6,25 @@ import { toast } from "sonner";
 import { useState } from "react";
 
 const materials = [
-  { title:"Week 1–2: Foundations of GenAI", items:[
-    { name:"LLMs & Transformers Overview", type:"video" },
-    { name:"Attention Mechanisms Deep Dive", type:"pdf" },
-    { name:"Tokenization & Embeddings Lab", type:"doc" },
+  { title:"Day 1: AI & LLM Basics", items:[
+    { name:"How LLMs Work — Transformers & Tokens", type:"video" },
+    { name:"Installing Ollama + qwen2.5:7b", type:"pdf" },
+    { name:"Python AI Scripting Lab", type:"doc" },
   ]},
-  { title:"Week 3–4: Prompt Engineering & APIs", items:[
-    { name:"OpenAI & Claude API Setup Guide", type:"pdf" },
-    { name:"Advanced Prompting Techniques", type:"video" },
-    { name:"Chain-of-Thought Workshop", type:"doc" },
+  { title:"Day 2: Agent & MCP Basics", items:[
+    { name:"What is an AI Agent? Sense–Plan–Act", type:"video" },
+    { name:"Model Context Protocol (MCP) Guide", type:"pdf" },
+    { name:"Build a File-Reading Agent — Lab", type:"doc" },
   ]},
-  { title:"Week 5–6: Building AI Agents", items:[
-    { name:"CrewAI Framework Guide", type:"pdf" },
-    { name:"Multi-Agent Orchestration", type:"video" },
-    { name:"Agent Communication Protocols", type:"doc" },
+  { title:"Day 3: Agent Skill Creation", items:[
+    { name:"Defining Tool Schemas in Python", type:"pdf" },
+    { name:"SQLite CRUD Agent Lab", type:"doc" },
+    { name:"Skill Chaining & Pipeline Patterns", type:"video" },
   ]},
-  { title:"Week 7–8: RAG & Vector Stores", items:[
-    { name:"Vector Database Setup", type:"pdf" },
-    { name:"Building RAG Pipelines", type:"video" },
-    { name:"Semantic Search Systems", type:"doc" },
-  ]},
-  { title:"Week 9–10: Enterprise AI Systems", items:[
-    { name:"Observability & Tracing Guide", type:"pdf" },
-    { name:"Cost Management Strategies", type:"video" },
-    { name:"Guardrails Implementation", type:"doc" },
-  ]},
-  { title:"Week 11–12: Capstone Project", items:[
-    { name:"Capstone Brief & Requirements", type:"pdf" },
-    { name:"Deployment Checklist", type:"doc" },
-    { name:"Demo Day Prep Guide", type:"doc" },
+  { title:"Day 4: Multi-Agent Workflow Project", items:[
+    { name:"Supervisor + Worker Agent Design", type:"video" },
+    { name:"CrewAI Setup & Configuration", type:"pdf" },
+    { name:"Demo Day — Project Presentation", type:"doc" },
   ]},
 ];
 
@@ -66,7 +56,7 @@ const Dashboard = () => {
             <div className="w-8 h-8 bg-black flex items-center justify-center">
               <Layers size={15} className="text-white" />
             </div>
-            <span className="font-display font-bold text-[17px] text-black">AgentAcademy</span>
+            <span className="font-display font-bold text-[17px] text-black">AI Agent Camp</span>
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-[13px] text-gray-400 hidden sm:block" style={{ fontFamily: 'Inter, sans-serif' }}>{user?.email}</span>
@@ -94,7 +84,7 @@ const Dashboard = () => {
               className="btn-black w-full justify-center"
               style={{ display: 'flex', height: '56px', fontSize: '15px', opacity: paymentLoading ? 0.6 : 1 }}>
               <CreditCard size={16} />
-              {paymentLoading ? "Redirecting to payment…" : "Pay $49 — Get Full Access"}
+              {paymentLoading ? "Redirecting to payment…" : "Pay $400 — Get Full Access"}
               <ArrowRight size={14} />
             </button>
             <p className="text-gray-400 text-[12px] mt-4" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -106,9 +96,9 @@ const Dashboard = () => {
           <>
             <div className="mb-16">
               <span className="section-label mb-3">Your Dashboard</span>
-              <h1 className="font-display font-bold text-[48px] text-black leading-[1.15]">Course Materials</h1>
+              <h1 className="font-display font-bold text-[48px] text-black leading-[1.15]">Camp Materials</h1>
               <p className="text-gray-500 text-[16px] mt-3" style={{ fontFamily: 'Inter, sans-serif' }}>
-                Welcome back, {user?.email?.split("@")[0]}. All 12 weeks unlocked.
+                Welcome back, {user?.email?.split("@")[0]}. All 4 days unlocked.
               </p>
             </div>
 

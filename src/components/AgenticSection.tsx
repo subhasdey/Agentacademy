@@ -1,10 +1,10 @@
-import { Wrench, Users, Layers, Activity } from "lucide-react";
+import { Terminal, Database, Bot, Layers } from "lucide-react";
 
 const features = [
-  { icon: Wrench, title:'Tool-Use & Function Calling', desc:'Equip agents with real-world tools — web search, code execution, database queries, and external API calls via MCP and native function calling.' },
-  { icon: Users, title:'Multi-Agent Orchestration', desc:'Design supervisor–worker hierarchies, peer collaboration networks, and event-driven pipelines using CrewAI and LangGraph.' },
-  { icon: Layers, title:'Memory & Context Management', desc:'Build agents with short-term buffers, episodic memory, semantic retrieval, and persistent state across sessions using Redis and vector stores.' },
-  { icon: Activity, title:'Observability & Guardrails', desc:'Monitor agent behaviour in production — distributed tracing, cost dashboards, hallucination detection, and safe fallback policies.' },
+  { icon: Terminal, title: 'Python-First Approach', desc: 'Everything is built in Python 3.11+. No frameworks to fight — just clean scripts that call Ollama, read SQLite, and orchestrate agents from first principles.' },
+  { icon: Bot, title: 'Local LLMs with Ollama', desc: 'Run qwen2.5:7b, gemma3:4b, and other models 100% locally. No OpenAI key required. Learn to prompt, tool-call, and chain locally-hosted models.' },
+  { icon: Database, title: 'SQLite & NoSQL Storage', desc: 'Agents that remember — persistent storage with SQLite for structured data and JSON files for flexible document storage. Build agents with real state.' },
+  { icon: Layers, title: 'MCP & Multi-Agent Orchestration', desc: 'Wire agents together using Model Context Protocol. Build supervisor–worker hierarchies, pass tasks, collect results, and ship a working pipeline on Day 4.' },
 ];
 
 const AgenticSection = () => (
@@ -12,9 +12,9 @@ const AgenticSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
         <div>
-          <span className="section-label mb-3">07 — Agentic AI Features</span>
+          <span className="section-label mb-3">07 — What You'll Use</span>
           <h2 className="font-display font-bold text-black leading-[1.15] mb-10 md:mb-12" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>
-            Every Layer of the Agentic Stack
+            Real Tools.<br />Real Agents.
           </h2>
           <div className="border-t border-gray-300">
             {features.map(f => {
@@ -34,25 +34,27 @@ const AgenticSection = () => (
           </div>
         </div>
 
-        <div className="bg-black p-8 md:p-12 md:sticky md:top-24">
-          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-white/30 mb-8 md:mb-10" style={{ fontFamily: 'Inter, sans-serif' }}>Multi-Agent Pipeline — Live View</div>
-          <div className="border border-white/20 px-4 py-3.5 text-white/80 text-[13px] font-medium flex items-center gap-3 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse flex-shrink-0" />
-            <Users size={13} className="text-white/40 flex-shrink-0" strokeWidth={1.5} />
-            Supervisor Agent — Routing task
+        {/* Live terminal mockup */}
+        <div className="bg-black p-8 md:p-10 md:sticky md:top-24 font-mono"
+          style={{ perspective: '600px', transition: 'transform 0.3s ease' }}
+          onMouseEnter={e => (e.currentTarget.style.transform = 'rotateY(-5deg) rotateX(3deg)')}
+          onMouseLeave={e => (e.currentTarget.style.transform = 'none')}>
+          <div className="flex gap-2 mb-6">
+            <span className="w-3 h-3 rounded-full bg-red-500 opacity-70" />
+            <span className="w-3 h-3 rounded-full bg-yellow-500 opacity-70" />
+            <span className="w-3 h-3 rounded-full bg-green-500 opacity-70" />
           </div>
-          <div className="ml-7 h-5 border-l border-dashed border-white/15" />
-          <div className="grid grid-cols-2 gap-1 mb-1">
-            {['Researcher','Writer','Analyst','Reviewer'].map(a => (
-              <div key={a} className="border border-white/[0.07] px-3 py-2.5 text-white/50 text-[12px] flex items-center gap-2" style={{ fontFamily: 'Inter, sans-serif' }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-white/20 flex-shrink-0" />{a}
-              </div>
-            ))}
-          </div>
-          <div className="ml-7 h-5 border-l border-dashed border-white/15" />
-          <div className="border border-white/20 px-4 py-3.5 text-white text-[13px] font-medium flex items-center gap-3" style={{ fontFamily: 'Inter, sans-serif' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-white flex-shrink-0" />
-            Output Agent — Delivering result
+          <div className="text-green-400 text-[12px] space-y-1 leading-[1.9]">
+            <div><span className="text-gray-500">$</span> pip install ollama smriti-memcore crewai</div>
+            <div className="text-gray-500">Installing packages...</div>
+            <div><span className="text-gray-500">$</span> ollama pull qwen2.5:7b</div>
+            <div className="text-gray-500">pulling manifest ████████ 100%</div>
+            <div className="mt-3"><span className="text-gray-500">$</span> python agent.py</div>
+            <div className="text-purple-400">{'>'} Supervisor routing task to Researcher...</div>
+            <div className="text-blue-300">{'>'} Researcher: found 3 results in SQLite</div>
+            <div className="text-blue-300">{'>'} Analyst: summarising findings...</div>
+            <div className="text-green-300">{'>'} Output: Report generated ✓</div>
+            <div className="animate-pulse text-white mt-2">█</div>
           </div>
         </div>
       </div>

@@ -91,4 +91,22 @@
     display: block; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px;
   }
+
+  /* 3D card base */
+  .card-3d {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+  }
+  .card-3d:hover {
+    transform: rotateY(-5deg) rotateX(4deg) translateZ(14px);
+    box-shadow: 10px 16px 40px rgba(0,0,0,0.18);
+  }
+
+  /* Float animation for hero elements */
+  @keyframes float3d {
+    0%   { transform: translateY(0px) rotateX(0deg); }
+    50%  { transform: translateY(-8px) rotateX(3deg); }
+    100% { transform: translateY(0px) rotateX(0deg); }
+  }
+  .float-3d { animation: float3d 4s ease-in-out infinite; }
 }
