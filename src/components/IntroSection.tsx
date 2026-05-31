@@ -8,13 +8,13 @@ const IntroSection = () => (
             Agentic AI is the skill gap of 2026.
           </h2>
           <p className="text-gray-500 text-[16px] leading-[1.85] mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Companies have moved past single LLM calls. They now need engineers who can design and deploy autonomous multi-agent systems — pipelines where AI agents reason, plan, use tools, and collaborate to solve complex business problems.
+            In just 4 evenings, you go from zero to shipping a working multi-agent system — no cloud API required. Every tool runs locally on your machine: Python, Ollama, and SQLite.
           </p>
           <p className="text-gray-500 text-[16px] leading-[1.85] mb-10" style={{ fontFamily: 'Inter, sans-serif' }}>
-            AgentAcademy is built entirely around this shift. We cover the complete stack: model APIs, agent frameworks, memory architectures, observability, and production deployment patterns used by leading AI teams worldwide.
+            The camp is built for developers, analysts, and curious builders who want to understand AI agents from first principles — not just wrap an API. Two sessions in July 2026, 5–7 PM PST, 20 seats each.
           </p>
           <div className="flex flex-wrap gap-2 mb-10">
-            {['CrewAI','LangGraph','AutoGen','RAG Pipelines','Tool-Use & MCP','Vector Stores','Production Deploy'].map(t => (
+            {['Python 3.11+','Ollama (Local LLM)','SQLite','MCP Protocol','CrewAI','Tool-Use','Multi-Agent'].map(t => (
               <span key={t} className="border border-gray-200 text-[12px] font-medium text-gray-500 px-4 py-1.5" style={{ fontFamily: 'Inter, sans-serif' }}>{t}</span>
             ))}
           </div>

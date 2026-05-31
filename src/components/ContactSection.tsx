@@ -1,10 +1,10 @@
 import { Mail, MessageSquare, Phone, Briefcase } from "lucide-react";
 
 const methods = [
-  { icon: Mail, title:'Email', desc:'hello@agentacademy.ai' },
+  { icon: Mail, title:'Email Us', desc:'hello@agentacademy.ai' },
   { icon: MessageSquare, title:'Discord Community', desc:'Join our growing student community server' },
-  { icon: Phone, title:'Schedule a Call', desc:'Book a 15-min intro call with an advisor' },
-  { icon: Briefcase, title:'Enterprise Sales', desc:'enterprise@agentacademy.ai' },
+  { icon: Phone, title:'Enrollment Questions', desc:'Book a 15-min call before you register' },
+  { icon: Briefcase, title:'Group & Team Bookings', desc:'3+ people? Contact us for group pricing' },
 ];
 
 const ContactSection = () => (
@@ -17,7 +17,7 @@ const ContactSection = () => (
             Have Questions?<br/>We Are Here.
           </h2>
           <p className="text-white/45 text-[16px] leading-[1.8] mb-12" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Whether you are deciding between plans, need an enterprise quote, or want to confirm this is the right programme — reach out. We respond within 24 hours.
+            Not sure if the camp is right for you? Have questions about sessions, setup, or pricing? Reach out — we respond within 24 hours.
           </p>
           <div className="space-y-0">
             {methods.map((m,i) => {
@@ -49,7 +49,7 @@ const ContactSection = () => (
           <select className="form-field-dark" style={{ background:'transparent' }}>
             <option style={{ background:'#0a0a0a' }}>General Inquiry</option>
             <option style={{ background:'#0a0a0a' }}>Enrollment Question</option>
-            <option style={{ background:'#0a0a0a' }}>Enterprise / Team Training</option>
+            <option style={{ background:'#0a0a0a' }}>Group / Team Booking</option>
             <option style={{ background:'#0a0a0a' }}>Technical Support</option>
             <option style={{ background:'#0a0a0a' }}>Partnership</option>
           </select>

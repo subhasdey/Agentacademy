@@ -1,9 +1,9 @@
 import { Play, Search, ShoppingCart, TrendingUp } from "lucide-react";
 
 const demos = [
-  { icon: Search, level:'Intermediate', dur:'18 min', title:'Autonomous Research Agent', desc:'A 3-agent pipeline that researches any topic, synthesises findings, and produces a structured report in under 2 minutes.', bg:'from-gray-900 to-gray-800' },
-  { icon: ShoppingCart, level:'Advanced', dur:'24 min', title:'E-Commerce Customer Service Agent', desc:'Intelligent customer service agent with tool-use, order lookup, refund processing, and escalation to human agents.', bg:'from-black to-gray-800' },
-  { icon: TrendingUp, level:'Expert', dur:'32 min', title:'Financial Analysis Pipeline', desc:'Multi-agent system monitoring stock data, generating daily briefings, and flagging anomalies — running 100% locally with Ollama.', bg:'from-gray-900 to-black' },
+  { icon: Search, level:'Day 2 Lab', dur:'4 min', title:'File Q&A Agent', desc:'A Python agent that reads local files and answers questions using Ollama — no internet, no API key. Built in the Day 2 evening session.', bg:'from-gray-900 to-gray-800' },
+  { icon: ShoppingCart, level:'Day 3 Lab', dur:'5 min', title:'SQLite Memory Agent', desc:'An agent that stores conversation history and structured data in SQLite — so it actually remembers what happened in previous turns.', bg:'from-black to-gray-800' },
+  { icon: TrendingUp, level:'Day 4 Capstone', dur:'8 min', title:'Multi-Agent Research Pipeline', desc:'The Day 4 demo project: a Supervisor agent orchestrates a Researcher, Writer, and Analyst using MCP — running 100% locally with Ollama.', bg:'from-gray-900 to-black' },
 ];
 
 const DemosSection = () => (
@@ -11,7 +11,7 @@ const DemosSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="mb-16">
         <span className="section-label mb-3">04 — Demos</span>
-        <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>See What Our Students Build</h2>
+        <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>What You'll Build in 4 Days</h2>
       </div>
       <div className="grid md:grid-cols-3 gap-0.5 bg-gray-200">
         {demos.map(d => {

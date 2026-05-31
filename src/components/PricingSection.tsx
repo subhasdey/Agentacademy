@@ -28,7 +28,7 @@ const plans = [
     cta: 'Enroll — Both Sessions', link: '/#checkout',
   },
   {
-    name: 'Team / Group', desc: '3+ people from the same company or school — custom group pricing.',
+    name: 'Team / Group', desc: '3+ people from the same team or school — register together and save.',
     price: 'Custom', period: 'Contact for group rate', featured: false,
     features: [
       { text: 'Up to 20 participants', on: true },
