@@ -1,6 +1,6 @@
 import { Users, Briefcase, BookOpen, Award } from "lucide-react";
 
-const partners = ['Anthropic','Microsoft','Google DeepMind','Wipro AI360'];
+const partners = ['Anthropic','Microsoft','Google DeepMind','Amazon','Meta'];
 const collabs = [
   { icon: Users, title:'Guest Lectures', desc:'Weekly sessions from engineers at Anthropic, Google, and leading AI startups sharing real patterns from production deployments.' },
   { icon: Briefcase, title:'Hiring Pipeline', desc:'Top graduates are recommended directly to partner companies. 340+ alumni placed in AI roles in the past six months alone.' },
