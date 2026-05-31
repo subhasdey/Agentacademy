@@ -21,44 +21,57 @@ const IntroSection = () => (
           <a href="#courses" className="btn-outline-dark">Explore Curriculum</a>
         </div>
         <div className="pt-12">
-          <div className="bg-gray-100 h-[440px] flex items-center justify-center relative overflow-hidden p-8">
-            <svg width="100%" height="100%" viewBox="0 0 480 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-              {/* Dashed connector lines — supervisor to workers */}
-              <line x1="240" y1="88" x2="80" y2="210" stroke="#d1d5db" strokeWidth="1.5" strokeDasharray="5 4"/>
-              <line x1="240" y1="88" x2="240" y2="210" stroke="#d1d5db" strokeWidth="1.5" strokeDasharray="5 4"/>
-              <line x1="240" y1="88" x2="400" y2="210" stroke="#d1d5db" strokeWidth="1.5" strokeDasharray="5 4"/>
-              {/* MCP labels on connectors */}
-              <text x="148" y="158" textAnchor="middle" fill="#9ca3af" fontSize="9" fontFamily="Inter,sans-serif" letterSpacing="0.08em">MCP</text>
-              <text x="248" y="168" textAnchor="middle" fill="#9ca3af" fontSize="9" fontFamily="Inter,sans-serif" letterSpacing="0.08em">MCP</text>
-              <text x="334" y="158" textAnchor="middle" fill="#9ca3af" fontSize="9" fontFamily="Inter,sans-serif" letterSpacing="0.08em">MCP</text>
-              {/* Worker to SQLite lines */}
-              <line x1="80" y1="272" x2="190" y2="320" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
-              <line x1="240" y1="272" x2="240" y2="320" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
-              <line x1="400" y1="272" x2="290" y2="320" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
-              {/* Supervisor node */}
-              <rect x="140" y="28" width="200" height="60" fill="#0a0a0a"/>
-              <text x="240" y="54" textAnchor="middle" fill="white" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="700" letterSpacing="0.12em">SUPERVISOR</text>
-              <text x="240" y="72" textAnchor="middle" fill="rgba(255,255,255,0.45)" fontSize="9" fontFamily="Inter,sans-serif">Orchestrator Agent</text>
-              {/* Worker: Research */}
-              <rect x="20" y="210" width="120" height="62" fill="white" stroke="#e5e7eb" strokeWidth="1.5"/>
-              <text x="80" y="237" textAnchor="middle" fill="#0a0a0a" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="700" letterSpacing="0.1em">RESEARCH</text>
-              <text x="80" y="253" textAnchor="middle" fill="#9ca3af" fontSize="8.5" fontFamily="Inter,sans-serif">Worker Agent</text>
-              <text x="80" y="265" textAnchor="middle" fill="#c4b5fd" fontSize="7.5" fontFamily="Inter,sans-serif">web · files · SQLite</text>
-              {/* Worker: Writer */}
-              <rect x="180" y="210" width="120" height="62" fill="white" stroke="#a78bfa" strokeWidth="1.5"/>
-              <text x="240" y="237" textAnchor="middle" fill="#0a0a0a" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="700" letterSpacing="0.1em">WRITER</text>
-              <text x="240" y="253" textAnchor="middle" fill="#9ca3af" fontSize="8.5" fontFamily="Inter,sans-serif">Worker Agent</text>
-              <text x="240" y="265" textAnchor="middle" fill="#c4b5fd" fontSize="7.5" fontFamily="Inter,sans-serif">draft · summarise · format</text>
-              {/* Worker: Analyst */}
-              <rect x="340" y="210" width="120" height="62" fill="white" stroke="#e5e7eb" strokeWidth="1.5"/>
-              <text x="400" y="237" textAnchor="middle" fill="#0a0a0a" fontSize="10" fontFamily="Inter,sans-serif" fontWeight="700" letterSpacing="0.1em">ANALYST</text>
-              <text x="400" y="253" textAnchor="middle" fill="#9ca3af" fontSize="8.5" fontFamily="Inter,sans-serif">Worker Agent</text>
-              <text x="400" y="265" textAnchor="middle" fill="#c4b5fd" fontSize="7.5" fontFamily="Inter,sans-serif">score · rank · report</text>
-              {/* SQLite shared memory */}
-              <rect x="170" y="320" width="140" height="48" fill="#f9fafb" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
-              <text x="240" y="342" textAnchor="middle" fill="#6b7280" fontSize="9.5" fontFamily="Inter,sans-serif" fontWeight="600" letterSpacing="0.06em">SQLite Memory</text>
-              <text x="240" y="358" textAnchor="middle" fill="#9ca3af" fontSize="8" fontFamily="Inter,sans-serif">Shared Agent State</text>
+          <div className="bg-gray-100 h-[440px] relative overflow-hidden flex flex-col items-center justify-between py-8 px-6">
+            {/* SVG connector lines — absolute overlay */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+              {/* Supervisor → horizontal T-bar */}
+              <line x1="50%" y1="88" x2="50%" y2="150" stroke="#c9c9c9" strokeWidth="1.5" strokeDasharray="5 3"/>
+              <line x1="16%" y1="150" x2="84%" y2="150" stroke="#c9c9c9" strokeWidth="1.5" strokeDasharray="5 3"/>
+              {/* T-bar → workers */}
+              <line x1="16%" y1="150" x2="16%" y2="185" stroke="#c9c9c9" strokeWidth="1.5" strokeDasharray="5 3"/>
+              <line x1="50%" y1="150" x2="50%" y2="185" stroke="#c9c9c9" strokeWidth="1.5" strokeDasharray="5 3"/>
+              <line x1="84%" y1="150" x2="84%" y2="185" stroke="#c9c9c9" strokeWidth="1.5" strokeDasharray="5 3"/>
+              {/* Workers → SQLite */}
+              <line x1="16%" y1="278" x2="50%" y2="360" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
+              <line x1="50%" y1="278" x2="50%" y2="360" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
+              <line x1="84%" y1="278" x2="50%" y2="360" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 3"/>
+              {/* MCP labels */}
+              <text x="28%" y="148" textAnchor="middle" fill="#9ca3af" fontSize="8" fontFamily="Inter,sans-serif" letterSpacing="1">MCP</text>
+              <text x="50%" y="148" textAnchor="middle" fill="#9ca3af" fontSize="8" fontFamily="Inter,sans-serif" letterSpacing="1">MCP</text>
+              <text x="72%" y="148" textAnchor="middle" fill="#9ca3af" fontSize="8" fontFamily="Inter,sans-serif" letterSpacing="1">MCP</text>
             </svg>
+
+            {/* Supervisor */}
+            <div className="relative z-10 bg-black text-white text-center px-10 py-4 w-52">
+              <div className="text-[9px] font-bold tracking-[0.18em] uppercase text-white/40 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Orchestrator</div>
+              <div className="font-display font-bold text-[13px] tracking-[0.12em] uppercase">SUPERVISOR</div>
+              <div className="text-[9px] text-white/35 mt-1" style={{ fontFamily: 'Inter, sans-serif' }}>Python · Ollama · MCP</div>
+            </div>
+
+            {/* Worker agents */}
+            <div className="relative z-10 flex gap-3 w-full mt-6">
+              <div className="flex-1 bg-white border border-gray-200 text-center py-4 px-2">
+                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-gray-400 mb-1.5" style={{ fontFamily: 'Inter, sans-serif' }}>Worker Agent</div>
+                <div className="font-display font-bold text-[12px] tracking-widest uppercase text-black">RESEARCH</div>
+                <div className="text-[8px] text-purple-300 mt-1.5" style={{ fontFamily: 'Inter, sans-serif' }}>web · files · SQLite</div>
+              </div>
+              <div className="flex-1 bg-white border-2 text-center py-4 px-2" style={{ borderColor: '#a78bfa' }}>
+                <div className="text-[8px] font-bold tracking-[0.14em] uppercase mb-1.5" style={{ fontFamily: 'Inter, sans-serif', color: '#a78bfa' }}>Worker Agent</div>
+                <div className="font-display font-bold text-[12px] tracking-widest uppercase text-black">WRITER</div>
+                <div className="text-[8px] mt-1.5" style={{ fontFamily: 'Inter, sans-serif', color: '#c4b5fd' }}>draft · format · edit</div>
+              </div>
+              <div className="flex-1 bg-white border border-gray-200 text-center py-4 px-2">
+                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-gray-400 mb-1.5" style={{ fontFamily: 'Inter, sans-serif' }}>Worker Agent</div>
+                <div className="font-display font-bold text-[12px] tracking-widest uppercase text-black">ANALYST</div>
+                <div className="text-[8px] text-purple-300 mt-1.5" style={{ fontFamily: 'Inter, sans-serif' }}>score · rank · report</div>
+              </div>
+            </div>
+
+            {/* SQLite memory */}
+            <div className="relative z-10 border border-dashed border-gray-300 bg-white/60 text-center px-10 py-3 mt-4">
+              <div className="text-[8px] font-bold tracking-[0.16em] uppercase text-gray-400 mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Shared State</div>
+              <div className="font-display font-bold text-[12px] text-gray-600 tracking-wide">SQLite Memory</div>
+            </div>
           </div>
           <p className="text-[12px] text-gray-400 uppercase tracking-widest mt-4" style={{ fontFamily: 'Inter, sans-serif' }}>
             Agent Architecture — Multi-node Orchestration Pattern
