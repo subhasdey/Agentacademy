@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Check, FileText, Sparkles, User, Mail, Calendar, Code, AlignLeft } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const RegisterSection = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -22,7 +24,7 @@ const RegisterSection = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.firstName || !formData.lastName || !formData.email) {
       toast({
@@ -33,11 +35,37 @@ const RegisterSection = () => {
       return;
     }
     
-    setIsSubmitted(true);
-    toast({
-      title: "Registration successful!",
-      description: "We've sent a confirmation email to " + formData.email,
-    });
+    setIsLoading(true);
+    try {
+      const { error } = await supabase
+        .from("registrations")
+        .insert([
+          {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            email: formData.email,
+            sessions: formData.sessions,
+            experience: formData.experience,
+            background: formData.background || null
+          }
+        ]);
+
+      if (error) throw error;
+
+      setIsSubmitted(true);
+      toast({
+        title: "Registration successful!",
+        description: "We've registered you and sent details to " + formData.email,
+      });
+    } catch (err: any) {
+      toast({
+        title: "Registration failed",
+        description: err.message || "An unexpected error occurred. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleClose = () => {
@@ -234,10 +262,11 @@ const RegisterSection = () => {
 
                   <button 
                     type="submit" 
+                    disabled={isLoading}
                     className="btn-black w-full justify-center mt-4 h-[52px]" 
-                    style={{ display: 'flex', background: '#7c3aed', color: '#fff' }}
+                    style={{ display: 'flex', background: '#7c3aed', color: '#fff', opacity: isLoading ? 0.6 : 1 }}
                   >
-                    Submit Registration
+                    {isLoading ? "Submitting..." : "Submit Registration"}
                   </button>
                 </form>
               </div>
