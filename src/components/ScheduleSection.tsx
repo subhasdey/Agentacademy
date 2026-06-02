@@ -8,12 +8,12 @@ const sessions = [
     highlight: 'Mon Jul 13 → Thu Jul 16',
   },
   {
-    label: 'SESSION 2', month: 'JUL', days: '27–30',
-    title: 'July Summer Camp — Week 4',
-    meta: 'Monday – Thursday · July 27, 28, 29, 30 · 5:00 PM – 7:00 PM PST · 4 days',
+    label: 'SESSION 2', month: 'JUL', days: '20–23',
+    title: 'July Summer Camp — Week 3',
+    meta: 'Monday – Thursday · July 20, 21, 22, 23 · 5:00 PM – 7:00 PM PST · 4 days',
     tags: ['Live', 'PST', 'Hands-On', 'July 2026'],
     seats: '20 seats available', urgent: false,
-    highlight: 'Mon Jul 27 → Thu Jul 30',
+    highlight: 'Mon Jul 20 → Thu Jul 23',
   },
 ];
 

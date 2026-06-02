@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu, X, Layers } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { user, signOut } = useAuth();
-  const navigate = useNavigate();
 
   const links = [
     { label: "About", href: "/#about" },
@@ -39,17 +36,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden lg:flex items-center gap-4">
-          {user ? (
-            <>
-              <Link to="/dashboard" className="text-[13px] font-semibold text-black tracking-wide uppercase" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.04em' }}>Dashboard</Link>
-              <button onClick={() => signOut()} className="btn-outline-dark" style={{ padding: '10px 20px', fontSize: '12px' }}>Sign Out</button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="text-[13px] font-semibold text-black tracking-wide uppercase" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.04em' }}>Log In</Link>
-              <a href="/#register" className="btn-black" style={{ padding: '10px 20px', fontSize: '12px' }}>Enroll Now</a>
-            </>
-          )}
+          <a href="/#register" className="btn-black" style={{ padding: '10px 20px', fontSize: '12px' }}>Enroll Now</a>
         </div>
 
         <button className="lg:hidden text-black" onClick={() => setOpen(!open)}>
@@ -66,14 +53,7 @@ const Navbar = () => {
             </a>
           ))}
           <div className="pt-3 border-t border-gray-100 flex flex-col gap-2">
-            {user ? (
-              <Link to="/dashboard" className="btn-black w-full text-center" onClick={() => setOpen(false)}>Dashboard</Link>
-            ) : (
-              <>
-                <Link to="/login" className="btn-outline-dark w-full text-center" onClick={() => setOpen(false)}>Log In</Link>
-                <a href="/#register" className="btn-black w-full text-center" onClick={() => setOpen(false)}>Enroll Now</a>
-              </>
-            )}
+            <a href="/#register" className="btn-black w-full text-center" onClick={() => setOpen(false)}>Enroll Now</a>
           </div>
         </div>
       )}

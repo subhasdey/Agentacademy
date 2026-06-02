@@ -2,7 +2,7 @@ import { Check, X, ArrowRight } from "lucide-react";
 
 const plans = [
   {
-    name: 'Single Session', desc: 'Join one 4-day session — either July Week 2 or July Week 4.',
+    name: 'Single Session', desc: 'Join one 4-day session — either July Week 2 or July Week 3.',
     price: '$400', period: 'Per 4-day session', featured: false,
     features: [
       { text: '4 live evening classes (5–7 PM PST)', on: true },
