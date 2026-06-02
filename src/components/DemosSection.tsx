@@ -173,7 +173,7 @@ const DemosSection = () => {
               >
                 {/* Video thumbnail with screen-recording chrome */}
                 <div className={`h-56 bg-gradient-to-br ${d.bg} relative overflow-hidden`}>
-                  <div className="absolute inset-4 border border-white/10 flex flex-col overflow-hidden">
+                  <div className="absolute inset-4 border border-white/10 flex flex-col overflow-hidden bg-black/60">
                     {/* Window title bar */}
                     <div className="flex items-center gap-1.5 px-3 py-2 bg-black/40 border-b border-white/10 flex-shrink-0">
                       <div className="w-2 h-2 rounded-full bg-red-400/50"/>
@@ -181,9 +181,33 @@ const DemosSection = () => {
                       <div className="w-2 h-2 rounded-full bg-green-400/50"/>
                       <span className="ml-2 text-white/25 text-[9px]" style={{ fontFamily: 'monospace' }}>{d.file}</span>
                     </div>
-                    {/* Screen body */}
-                    <div className="flex-1 flex items-center justify-center">
-                      <Icon size={36} className="text-white/10" strokeWidth={1}/>
+                    {/* Screen body (Mini terminal with CLI commands) */}
+                    <div className="flex-1 p-4 font-mono text-[10px] text-white/30 flex flex-col justify-start gap-1 select-none text-left">
+                      <div className="flex items-center gap-1.5 text-purple-400 font-bold mb-1">
+                        <span className="text-emerald-400 font-extrabold">&gt;</span>
+                        <span>{d.level === 'Day 2 Lab' ? 'python file_qa_agent.py' : d.level === 'Day 3 Lab' ? 'python sqlite_memory_agent.py' : 'python multi_agent_pipeline.py'}</span>
+                      </div>
+                      {d.level === 'Day 2 Lab' && (
+                        <>
+                          <div className="text-white/15">[INFO] Scanning local files...</div>
+                          <div className="text-white/15">[Ollama] Loaded model: llama3</div>
+                          <div className="text-emerald-500/25 font-bold">[SUCCESS] Ready for queries!</div>
+                        </>
+                      )}
+                      {d.level === 'Day 3 Lab' && (
+                        <>
+                          <div className="text-white/15">[DB] Connecting to agent_memory.db...</div>
+                          <div className="text-white/15">[DB] Found 42 stored profile records.</div>
+                          <div className="text-emerald-500/25 font-bold">[SUCCESS] Agent memory loaded.</div>
+                        </>
+                      )}
+                      {d.level === 'Day 4 Capstone' && (
+                        <>
+                          <div className="text-white/15">[INFO] Spawning Supervisor node...</div>
+                          <div className="text-white/15">[MCP] Registered Researcher & Analyst.</div>
+                          <div className="text-emerald-500/25 font-bold">[SUCCESS] Supervisor active.</div>
+                        </>
+                      )}
                     </div>
                     {/* Progress / controls bar */}
                     <div className="px-3 py-2 bg-black/40 border-t border-white/10 flex-shrink-0">
@@ -196,10 +220,10 @@ const DemosSection = () => {
                       </div>
                     </div>
                   </div>
-                  {/* Play overlay on hover */}
-                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center" style={{ zIndex: 10 }}>
-                    <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center">
-                      <Play size={18} className="text-white ml-0.5" fill="white" />
+                  {/* Sleek floating Play button in top-right corner (does not obscure CLI commands) */}
+                  <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0" style={{ zIndex: 10 }}>
+                    <div className="w-9 h-9 rounded-full border border-purple-500/30 bg-black/80 flex items-center justify-center shadow-lg backdrop-blur-md">
+                      <Play size={12} className="text-purple-400 ml-0.5" fill="rgba(167, 139, 250, 0.2)" />
                     </div>
                   </div>
                 </div>
@@ -236,18 +260,29 @@ const DemosSection = () => {
             </DialogHeader>
 
             <div className="grid md:grid-cols-2 gap-6 items-stretch">
-              {/* Left Column: Video */}
-              <div className="relative border border-white/10 overflow-hidden flex flex-col justify-center bg-black aspect-video md:h-[350px]">
-                {activeDemo && (
-                  <video 
-                    src={activeDemo.videoUrl} 
-                    autoPlay 
-                    loop 
-                    muted 
-                    controls 
-                    className="w-full h-full object-cover" 
-                  />
-                )}
+              {/* Left Column: Coming Soon Placeholder */}
+              <div className="relative border border-white/10 overflow-hidden flex flex-col justify-center bg-[#0d0d12] h-[250px] md:h-[350px] w-full">
+                <div className="w-full h-full bg-gradient-to-br from-purple-950/10 via-zinc-900 to-black flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
+                  {/* Subtle technical background grid */}
+                  <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
+                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px)',
+                    backgroundSize: '20px 20px',
+                  }} />
+                  
+                  <div className="w-14 h-14 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-5 relative z-10">
+                    <Play size={18} className="text-purple-400 ml-0.5 animate-pulse" fill="rgba(167, 139, 250, 0.2)" />
+                  </div>
+                  
+                  <span className="bg-purple-950/40 text-purple-300 text-[10px] font-bold tracking-widest uppercase px-3 py-1 mb-3 border border-purple-500/20" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    Screencast Walkthrough
+                  </span>
+                  
+                  <h4 className="font-display font-bold text-[20px] text-white mb-2">Demo Video Coming Soon</h4>
+                  
+                  <p className="text-white/40 text-[12px] leading-relaxed max-w-[280px]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    We are currently recording the high-definition agent execution screens. Check back prior to camp launch!
+                  </p>
+                </div>
               </div>
 
               {/* Right Column: Terminal Mock */}
