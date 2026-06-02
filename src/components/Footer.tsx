@@ -37,8 +37,17 @@ const Footer = () => (
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-white/25 text-[12px]" style={{ fontFamily: 'Inter, sans-serif' }}>© 2026 AgentAcademy. All rights reserved.</p>
         <div className="flex gap-2">
-          {[Twitter, Linkedin, Youtube, MessageSquare].map((Icon, i) => (
-            <button key={i} className="w-9 h-9 border border-white/[0.08] flex items-center justify-center hover:border-white/35 hover:bg-white/5 transition-all">
+          {[
+            { Icon: Twitter, label: "Follow AgentAcademy on Twitter" },
+            { Icon: Linkedin, label: "Connect with AgentAcademy on LinkedIn" },
+            { Icon: Youtube, label: "Subscribe to AgentAcademy on YouTube" },
+            { Icon: MessageSquare, label: "Join the AgentAcademy Discord community server" }
+          ].map(({ Icon, label }, i) => (
+            <button 
+              key={i} 
+              aria-label={label} 
+              className="w-9 h-9 border border-white/[0.08] flex items-center justify-center hover:border-white/35 hover:bg-white/5 transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-purple-500"
+            >
               <Icon size={14} className="text-white/40" strokeWidth={1.5} />
             </button>
           ))}

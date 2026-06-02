@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => (
-  <section className="bg-black min-h-screen flex flex-col justify-end pb-20 relative overflow-hidden">
+  <section className="bg-[#09090b] min-h-screen flex flex-col justify-end pb-20 relative overflow-hidden">
     {/* 3D grid with perspective */}
     <div className="absolute inset-0" style={{
       backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px)',

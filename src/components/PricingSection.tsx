@@ -30,7 +30,7 @@ const plans = [
 ];
 
 const PricingSection = () => (
-  <section id="pricing" className="py-20 md:py-28 bg-black">
+  <section id="pricing" className="py-20 md:py-28 bg-[#09090b]">
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-2 gap-10 md:gap-20 mb-16 md:mb-20 items-end">
         <div>
@@ -44,15 +44,15 @@ const PricingSection = () => (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10" style={{ perspective: '1200px' }}>
         {plans.map((p, i) => (
           <div key={p.name}
-            className="bg-black p-8 md:p-12 transition-all duration-300 cursor-pointer"
+            className="bg-[#121218] p-8 md:p-12 transition-all duration-300 cursor-pointer"
             style={{ borderTop: p.featured ? '2px solid #a78bfa' : '2px solid transparent' }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLElement).style.transform = i === 1 ? 'translateZ(18px) rotateY(0deg)' : i === 0 ? 'rotateY(6deg) rotateX(3deg)' : 'rotateY(-6deg) rotateX(3deg)';
-              (e.currentTarget as HTMLElement).style.background = '#0f0f1a';
+              (e.currentTarget as HTMLElement).style.background = '#181822';
             }}
             onMouseLeave={e => {
               (e.currentTarget as HTMLElement).style.transform = 'none';
-              (e.currentTarget as HTMLElement).style.background = '#000';
+              (e.currentTarget as HTMLElement).style.background = '#121218';
             }}>
             {p.featured && (
               <div className="text-[10px] font-bold tracking-widest uppercase text-black px-3 py-1 inline-block mb-4"

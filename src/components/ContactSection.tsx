@@ -8,7 +8,7 @@ const methods = [
 ];
 
 const ContactSection = () => (
-  <section id="contact" className="py-28 bg-black">
+  <section id="contact" className="py-28 bg-[#09090b]">
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-2 gap-20 items-start">
         <div>
