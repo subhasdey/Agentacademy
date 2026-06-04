@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Check, FileText, Sparkles, User, Mail, Calendar, Code, AlignLeft } from "lucide-react";
+import { Check, FileText, Sparkles, User, Mail, Calendar, Code, AlignLeft, LogIn } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const RegisterSection = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [needsAuth, setNeedsAuth] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,6 +21,8 @@ const RegisterSection = () => {
   });
 
   const { toast } = useToast();
+  const { user, session, signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -34,10 +39,17 @@ const RegisterSection = () => {
       });
       return;
     }
-    
+
+    // If user is not logged in, show auth step
+    if (!user || !session) {
+      setNeedsAuth(true);
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const { error } = await supabase
+      // Save registration to database
+      const { error: regError } = await supabase
         .from("registrations")
         .insert([
           {
@@ -49,17 +61,21 @@ const RegisterSection = () => {
             background: formData.background || null
           }
         ]);
+      if (regError) throw regError;
 
-      if (error) throw error;
-
-      setIsSubmitted(true);
-      toast({
-        title: "Registration successful!",
-        description: "We've registered you and sent details to " + formData.email,
+      // Create Stripe checkout session
+      const { data, error: payError } = await supabase.functions.invoke("create-payment", {
+        headers: { Authorization: `Bearer ${session.access_token}` },
       });
+      if (payError) throw payError;
+      if (data?.url) {
+        window.location.href = data.url;
+        return;
+      }
+      throw new Error("No payment URL returned");
     } catch (err: any) {
       toast({
-        title: "Registration failed",
+        title: "Error",
         description: err.message || "An unexpected error occurred. Please try again.",
         variant: "destructive"
       });
@@ -70,9 +86,9 @@ const RegisterSection = () => {
 
   const handleClose = () => {
     setIsOpen(false);
-    // Reset submission state after the modal closes
     setTimeout(() => {
       setIsSubmitted(false);
+      setNeedsAuth(false);
       setFormData({
         firstName: '',
         lastName: '',
@@ -165,7 +181,47 @@ const RegisterSection = () => {
       <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
         <DialogContent className="max-w-[92%] md:max-w-xl bg-white text-black p-0 border-gray-200 rounded-none overflow-hidden" style={{ borderRadius: 0 }}>
           <div className="max-h-[90vh] overflow-y-auto">
-            {!isSubmitted ? (
+            {needsAuth ? (
+              <div className="p-8 md:p-10 text-center flex flex-col items-center">
+                <div className="w-16 h-16 bg-black flex items-center justify-center mx-auto mb-6">
+                  <LogIn size={26} className="text-white" strokeWidth={1.5} />
+                </div>
+                <h3 className="font-display font-bold text-[24px] mb-3 text-black">Sign In to Continue</h3>
+                <p className="text-gray-500 text-[14px] leading-[1.7] max-w-[360px] mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  Create a free account or sign in to proceed to secure payment via Stripe.
+                </p>
+                <button
+                  onClick={async () => {
+                    const { error } = await signInWithGoogle();
+                    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+                  }}
+                  className="w-full flex items-center justify-center gap-3 border border-gray-200 py-3.5 mb-4 text-[14px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                  style={{ fontFamily: 'Inter, sans-serif', cursor: 'pointer', background: '#fff' }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+                    <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+                    <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+                    <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+                  </svg>
+                  Continue with Google
+                </button>
+                <button
+                  onClick={() => { handleClose(); navigate("/login"); }}
+                  className="w-full py-3.5 text-[14px] font-semibold text-white"
+                  style={{ background: '#0a0a0a', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}
+                >
+                  Sign In with Email
+                </button>
+                <button
+                  onClick={() => setNeedsAuth(false)}
+                  className="mt-5 text-[12px] text-gray-400 hover:text-black transition-colors"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}
+                >
+                  ← Back to form
+                </button>
+              </div>
+            ) : !isSubmitted ? (
               <div className="p-6 md:p-10">
                 <DialogHeader className="mb-8">
                   <DialogTitle className="font-display text-[26px] md:text-[30px] font-bold text-black flex items-center gap-2">
@@ -260,13 +316,13 @@ const RegisterSection = () => {
                     />
                   </div>
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     disabled={isLoading}
-                    className="btn-black w-full justify-center mt-4 h-[52px]" 
+                    className="btn-black w-full justify-center mt-4 h-[52px]"
                     style={{ display: 'flex', background: '#7c3aed', color: '#fff', opacity: isLoading ? 0.6 : 1 }}
                   >
-                    {isLoading ? "Submitting..." : "Submit Registration"}
+                    {isLoading ? "Redirecting to payment…" : user ? "Register & Pay with Stripe" : "Continue to Payment"}
                   </button>
                 </form>
               </div>
