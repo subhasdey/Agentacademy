@@ -1,7 +1,7 @@
 import { User } from "lucide-react";
 
 const stories = [
-  { quote: "Within three weeks of completing the programme, I built a RAG-based internal knowledge agent for my company. My manager asked how I did it. My promotion came two months later.", name:"Sneha K.", role:"ML Engineer" },
+  { quote: "I did not know anything about agentic AI and had never worked on a project that big. With all the collaboration and work behind the project, though, I learned how to work between groups to fulfill the goals that were established. I also learned much more about professional development, especially pertaining to AI.", name:"Tesla STEM Student", role:"Tesla STEM High School" },
   { quote: "I had no ML background — just Python. The way the instructors break down agentic concepts made it click immediately. I shipped my first production agent in week six. That still feels surreal.", name:"Arjun R.", role:"Backend Dev → AI Engineer" },
   { quote: "The capstone project was worth the entire tuition on its own. I presented a 5-agent supply chain optimiser to three VC firms. Two wanted to fund it. This programme changed everything.", name:"Meera P.", role:"Founder, AgentOps.ai" },
 ];
