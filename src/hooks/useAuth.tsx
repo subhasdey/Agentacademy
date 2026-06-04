@@ -73,10 +73,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return { error: error as Error | null };
   };
 
-  const signInWithGoogle = async (idToken: string) => {
-    const { error } = await supabase.auth.signInWithIdToken({
-      provider: "google",
-      token: idToken,
+  const signInWithGoogle = async (accessToken: string) => {
+    // Call Vercel API route to verify Google token + get a magic link OTP
+    const res = await fetch("/api/google-signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ access_token: accessToken }),
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) return { error: new Error(data.error || "Google sign-in failed") };
+
+    // Exchange the OTP for a Supabase session
+    const { error } = await supabase.auth.verifyOtp({
+      email: data.email,
+      token: data.token,
+      type: "email",
     });
     return { error: error as Error | null };
   };
