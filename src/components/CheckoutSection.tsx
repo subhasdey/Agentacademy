@@ -22,7 +22,7 @@ const CheckoutSection = () => (
             </div>
             <div className="flex justify-between py-3.5 border-b border-gray-100 text-[14px]" style={{ fontFamily: 'Inter, sans-serif' }}>
               <span className="text-gray-600 flex items-center gap-2">
-                Combo Discount 
+                Combo Discount
                 <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide">Save $100</span>
               </span>
               <span className="font-semibold text-emerald-600">-$100.00</span>
@@ -32,10 +32,6 @@ const CheckoutSection = () => (
             </div>
             <div className="flex justify-between py-3.5 border-b border-gray-100 text-[14px]" style={{ fontFamily: 'Inter, sans-serif' }}>
               <span className="text-gray-600">Certificate of completion</span><span className="font-semibold text-gray-900">Included</span>
-            </div>
-            <div className="flex justify-between pt-5 text-[16px] font-bold text-black" style={{ fontFamily: 'Inter, sans-serif' }}>
-              <span>Both Sessions Total</span>
-              <span className="text-[18px] text-purple-600">$700.00</span>
             </div>
           </div>
           <p className="text-gray-400 text-[13px] mt-5 leading-[1.7]" style={{ fontFamily: 'Inter, sans-serif' }}>30-day money-back guarantee · Secured by Stripe</p>
