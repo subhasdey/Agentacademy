@@ -3,7 +3,7 @@ import { User } from "lucide-react";
 const stories = [
   { quote: "I did not know anything about agentic AI and had never worked on a project that big. With all the collaboration and work behind the project, though, I learned how to work between groups to fulfill the goals that were established. I also learned much more about professional development, especially pertaining to AI.", name:"Tesla STEM Student", role:"Tesla STEM High School" },
   { quote: "The way the instructors clearly laid out expectations for overlapping sections and agent tasks, in addition to facilitating of regular updates between groups, helped us stay in sync and steadily build to our goal.", name:"Isabel", role:"Tesla STEM High School" },
-  { quote: "The capstone project was worth the entire tuition on its own. I presented a 5-agent supply chain optimiser to three VC firms. Two wanted to fund it. This programme changed everything.", name:"Meera P.", role:"Founder, AgentOps.ai" },
+  { quote: "I had no experience at all working across multiple teams and resolving logic issues that required me to look at another person's code. Within 6 sessions with the instructors, I learned exactly how to work as if I was in a professional team.", name:"Pragyan", role:"Tesla STEM High School" },
 ];
 
 const AnecdotesSection = () => (
