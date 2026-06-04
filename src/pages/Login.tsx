@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Layers, ArrowRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const [tab, setTab] = useState<'login'|'signup'>('login');
@@ -12,6 +13,22 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      // Fetch the ID token using the access token
+      const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+      });
+      if (!res.ok) { toast.error("Google sign-in failed"); return; }
+      // Use access token with Supabase signInWithIdToken via nonce-less flow
+      const { error } = await signInWithGoogle(tokenResponse.access_token);
+      if (error) toast.error(error.message);
+      else navigate("/dashboard");
+    },
+    onError: () => toast.error("Google sign-in failed"),
+    flow: "implicit",
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,10 +107,7 @@ const Login = () => {
           {/* Google Sign-In */}
           <button
             type="button"
-            onClick={async () => {
-              const { error } = await signInWithGoogle();
-              if (error) toast.error(error.message);
-            }}
+            onClick={() => googleLogin()}
             className="w-full flex items-center justify-center gap-3 border border-gray-200 py-3 mb-6 text-[13px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
             style={{ fontFamily: 'Inter, sans-serif', cursor: 'pointer', background: '#fff' }}
           >

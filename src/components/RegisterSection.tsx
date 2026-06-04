@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const RegisterSection = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +24,16 @@ const RegisterSection = () => {
   const { toast } = useToast();
   const { user, session, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const { error } = await signInWithGoogle(tokenResponse.access_token);
+      if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+      else setNeedsAuth(false);
+    },
+    onError: () => toast({ title: "Error", description: "Google sign-in failed", variant: "destructive" }),
+    flow: "implicit",
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -191,10 +202,7 @@ const RegisterSection = () => {
                   Create a free account or sign in to proceed to secure payment via Stripe.
                 </p>
                 <button
-                  onClick={async () => {
-                    const { error } = await signInWithGoogle();
-                    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
-                  }}
+                  onClick={() => googleLogin()}
                   className="w-full flex items-center justify-center gap-3 border border-gray-200 py-3.5 mb-4 text-[14px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
                   style={{ fontFamily: 'Inter, sans-serif', cursor: 'pointer', background: '#fff' }}
                 >
