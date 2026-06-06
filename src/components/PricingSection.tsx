@@ -34,7 +34,7 @@ const PricingSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-2 gap-10 md:gap-20 mb-16 md:mb-20 items-end">
         <div>
-          <span className="section-label text-white/40 mb-3">09 — Pricing</span>
+          <span className="section-label text-white/40 mb-3">Pricing</span>
           <h2 className="font-display font-bold text-white leading-[1.15]" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>Simple, Flat Pricing.</h2>
         </div>
         <p className="text-white/45 text-[15px] md:text-[16px] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>

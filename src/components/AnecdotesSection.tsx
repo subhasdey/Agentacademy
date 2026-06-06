@@ -11,7 +11,7 @@ const AnecdotesSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-[1fr_2fr] gap-20 mb-20 items-center">
         <div>
-          <span className="section-label mb-3">05 — Student Stories</span>
+          <span className="section-label mb-3">Student Stories</span>
           <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>Real Outcomes.</h2>
         </div>
         <p className="text-gray-500 text-[16px] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>

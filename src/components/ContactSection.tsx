@@ -12,7 +12,7 @@ const ContactSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-2 gap-20 items-start">
         <div>
-          <span className="section-label text-white/40 mb-3">11 — Contact</span>
+          <span className="section-label text-white/40 mb-3">Contact</span>
           <h2 className="font-display font-bold text-white leading-[1.15] mb-7" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>
             Have Questions?<br/>We Are Here.
           </h2>

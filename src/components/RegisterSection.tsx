@@ -96,7 +96,7 @@ const RegisterSection = () => {
       <div className="max-w-[1240px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-2 gap-20 items-center mb-20">
           <div>
-            <span className="section-label mb-3">12 — Registration</span>
+            <span className="section-label mb-3">Registration</span>
             <h2 className="font-display font-bold text-black leading-[1.15] mb-6" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>
               Reserve Your Seat.<br />July 2026.
             </h2>

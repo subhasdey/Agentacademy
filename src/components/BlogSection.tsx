@@ -29,7 +29,7 @@ const BlogSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
         <div>
-          <span className="section-label text-white/40 mb-3">02 — Camp Blog</span>
+          <span className="section-label text-white/40 mb-3">Camp Blog</span>
           <h2 className="font-display font-bold text-white leading-[1.15]" style={{ fontSize: 'clamp(26px,4vw,44px)' }}>
             From the Camp.<br className="hidden md:block"/>Guides, Previews & Student Stories.
           </h2>

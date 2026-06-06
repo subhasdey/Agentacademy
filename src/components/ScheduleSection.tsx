@@ -28,7 +28,7 @@ const ScheduleSection = () => (
   <section id="schedule" className="py-28 bg-white">
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="mb-16">
-        <span className="section-label mb-3">10 — Schedule</span>
+        <span className="section-label mb-3">Schedule</span>
         <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>Two Sessions. July 2026.</h2>
         <p className="text-gray-500 text-[15px] mt-3 max-w-[560px]" style={{ fontFamily: 'Inter, sans-serif' }}>
           Each session runs 4 evenings, Monday through Thursday, 5–7 PM PST. Pick either or join both.

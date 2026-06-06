@@ -35,7 +35,7 @@ const CoursesSection = () => {
       <div className="max-w-[1240px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-2 gap-10 md:gap-20 mb-16 md:mb-20 items-end">
           <div>
-            <span className="section-label mb-3">03 — Curriculum</span>
+            <span className="section-label mb-3">Curriculum</span>
             <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>4 Days. Zero to Agent.</h2>
           </div>
           <p className="text-gray-500 text-[15px] md:text-[16px] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>

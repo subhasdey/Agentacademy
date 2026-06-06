@@ -13,7 +13,7 @@ const IndustrySection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-2 gap-10 md:gap-20 mb-16 md:mb-20 items-end">
         <div>
-          <span className="section-label mb-3">08 — Industry Collaboration</span>
+          <span className="section-label mb-3">Industry Collaboration</span>
           <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>Built With Industry. For Industry.</h2>
         </div>
         <p className="text-gray-500 text-[15px] md:text-[16px] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>

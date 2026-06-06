@@ -153,7 +153,7 @@ const DemosSection = () => {
     <section id="demos" className="py-28 bg-gray-100">
       <div className="max-w-[1240px] mx-auto px-6 md:px-12">
         <div className="mb-16">
-          <span className="section-label mb-3">04 — Demos</span>
+          <span className="section-label mb-3">Demos</span>
           <h2 className="font-display font-bold text-black leading-[1.15]" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>
             What You'll Build in 4 Days
           </h2>

@@ -12,7 +12,7 @@ const AgenticSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
         <div>
-          <span className="section-label mb-3">07 — What You'll Use</span>
+          <span className="section-label mb-3">What You'll Use</span>
           <h2 className="font-display font-bold text-black leading-[1.15] mb-10 md:mb-12" style={{ fontSize: 'clamp(28px,4vw,48px)' }}>
             Real Tools.<br />Real Agents.
           </h2>

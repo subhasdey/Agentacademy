@@ -3,7 +3,7 @@ const IntroSection = () => (
     <div className="max-w-[1240px] mx-auto px-6 md:px-12">
       <div className="grid md:grid-cols-2 gap-20 items-start">
         <div>
-          <span className="section-label mb-6">01 — Introduction</span>
+          <span className="section-label mb-6">Introduction</span>
           <h2 className="font-display font-bold text-black leading-[1.15] mb-8" style={{ fontSize: 'clamp(32px,4vw,48px)' }}>
             Agentic AI is the skill gap of 2026.
           </h2>
