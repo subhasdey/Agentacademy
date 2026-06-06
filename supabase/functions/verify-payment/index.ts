@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
-import { createClient } from "npm:@supabase/supabase-js@2.57.2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,18 +11,7 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  const supabaseClient = createClient(
-    Deno.env.get("SUPABASE_URL") ?? "",
-    Deno.env.get("SUPABASE_ANON_KEY") ?? ""
-  );
-
   try {
-    const authHeader = req.headers.get("Authorization")!;
-    const token = authHeader.replace("Bearer ", "");
-    const { data } = await supabaseClient.auth.getUser(token);
-    const user = data.user;
-    if (!user?.email) throw new Error("User not authenticated");
-
     const { session_id } = await req.json();
     if (!session_id) throw new Error("Missing session_id");
 
@@ -33,28 +21,19 @@ serve(async (req) => {
 
     const session = await stripe.checkout.sessions.retrieve(session_id);
 
-    if (session.payment_status === "paid") {
-      // Update profile to mark as purchased using service role
-      const supabaseAdmin = createClient(
-        Deno.env.get("SUPABASE_URL") ?? "",
-        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
-      );
+    const paid = session.payment_status === "paid";
 
-      await supabaseAdmin
-        .from("profiles")
-        .update({ has_purchased: true })
-        .eq("user_id", user.id);
-
-      return new Response(JSON.stringify({ paid: true }), {
+    return new Response(
+      JSON.stringify({
+        paid,
+        customerEmail: session.customer_details?.email ?? null,
+        sessions: session.metadata?.sessions ?? null,
+      }),
+      {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
-      });
-    }
-
-    return new Response(JSON.stringify({ paid: false }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+      }
+    );
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

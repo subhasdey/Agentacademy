@@ -1,17 +1,12 @@
 import { useState } from "react";
-import { Check, FileText, Sparkles, User, Mail, Calendar, Code, AlignLeft, LogIn } from "lucide-react";
+import { Check, FileText, User, Mail, Calendar, Code, AlignLeft, CreditCard } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
-import { useGoogleLogin } from "@react-oauth/google";
 
 const RegisterSection = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [needsAuth, setNeedsAuth] = useState(false);
+  const [loadingStep, setLoadingStep] = useState<null | 'saving' | 'redirecting'>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -22,18 +17,6 @@ const RegisterSection = () => {
   });
 
   const { toast } = useToast();
-  const { user, session, signInWithGoogle } = useAuth();
-  const navigate = useNavigate();
-
-  const googleLogin = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      const { error } = await signInWithGoogle(tokenResponse.access_token);
-      if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
-      else setNeedsAuth(false);
-    },
-    onError: () => toast({ title: "Error", description: "Google sign-in failed", variant: "destructive" }),
-    flow: "implicit",
-  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -51,55 +34,52 @@ const RegisterSection = () => {
       return;
     }
 
-    // If user is not logged in, show auth step
-    if (!user || !session) {
-      setNeedsAuth(true);
-      return;
-    }
-
-    setIsLoading(true);
     try {
-      // Save registration to database
-      const { error: regError } = await supabase
+      // Step 1 — Save registration details to DB
+      setLoadingStep('saving');
+      const { error: dbError } = await supabase
         .from("registrations")
-        .insert([
-          {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            email: formData.email,
-            sessions: formData.sessions,
-            experience: formData.experience,
-            background: formData.background || null
-          }
-        ]);
-      if (regError) throw regError;
+        .insert([{
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          sessions: formData.sessions,
+          experience: formData.experience,
+          background: formData.background || null
+        }]);
 
-      // Create Stripe checkout session
-      const { data, error: payError } = await supabase.functions.invoke("create-payment", {
-        headers: { Authorization: `Bearer ${session.access_token}` },
+      if (dbError) throw dbError;
+
+      // Step 2 — Create Stripe Checkout session and redirect
+      setLoadingStep('redirecting');
+      const { data, error: fnError } = await supabase.functions.invoke("create-payment", {
+        body: {
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          sessions: formData.sessions,
+        },
       });
-      if (payError) throw payError;
-      if (data?.url) {
-        window.location.href = data.url;
-        return;
-      }
-      throw new Error("No payment URL returned");
+
+      if (fnError) throw new Error(fnError.message || "Could not create payment session");
+      if (!data?.url) throw new Error("No payment URL returned");
+
+      // Redirect to Stripe Checkout
+      window.location.href = data.url;
     } catch (err: any) {
       toast({
-        title: "Error",
+        title: "Something went wrong",
         description: err.message || "An unexpected error occurred. Please try again.",
         variant: "destructive"
       });
-    } finally {
-      setIsLoading(false);
+      setLoadingStep(null);
     }
   };
 
   const handleClose = () => {
+    if (loadingStep) return; // prevent closing while processing
     setIsOpen(false);
     setTimeout(() => {
-      setIsSubmitted(false);
-      setNeedsAuth(false);
       setFormData({
         firstName: '',
         lastName: '',
@@ -109,12 +89,6 @@ const RegisterSection = () => {
         background: ''
       });
     }, 300);
-  };
-
-  const getSessionsLabel = (val: string) => {
-    if (val === 'session1') return 'Session 1 only (Jul 13–16)';
-    if (val === 'session2') return 'Session 2 only (Jul 20–23)';
-    return 'Both Sessions (Jul 13–16 & Jul 20–23)';
   };
 
   return (
@@ -158,7 +132,7 @@ const RegisterSection = () => {
               className="btn-black w-full justify-center mb-4 transition-transform hover:scale-[1.01]"
               style={{ display: 'flex', background: '#7c3aed', color: '#fff' }}
             >
-              Open Registration Form
+              <CreditCard size={15} /> Register & Pay with Stripe
             </button>
             <p className="text-gray-400 text-[11px] tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>
               Instant Confirmation · Secure Private Registry
@@ -189,54 +163,16 @@ const RegisterSection = () => {
       </div>
 
       {/* Registration Dialog Form */}
-      <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
+      <Dialog open={isOpen} onOpenChange={(open) => !open && !loadingStep && handleClose()}>
         <DialogContent className="max-w-[92%] md:max-w-xl bg-white text-black p-0 border-gray-200 rounded-none overflow-hidden" style={{ borderRadius: 0 }}>
           <div className="max-h-[90vh] overflow-y-auto">
-            {needsAuth ? (
-              <div className="p-8 md:p-10 text-center flex flex-col items-center">
-                <div className="w-16 h-16 bg-black flex items-center justify-center mx-auto mb-6">
-                  <LogIn size={26} className="text-white" strokeWidth={1.5} />
-                </div>
-                <h3 className="font-display font-bold text-[24px] mb-3 text-black">Sign In to Continue</h3>
-                <p className="text-gray-500 text-[14px] leading-[1.7] max-w-[360px] mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  Create a free account or sign in to proceed to secure payment via Stripe.
-                </p>
-                <button
-                  onClick={() => googleLogin()}
-                  className="w-full flex items-center justify-center gap-3 border border-gray-200 py-3.5 mb-4 text-[14px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
-                  style={{ fontFamily: 'Inter, sans-serif', cursor: 'pointer', background: '#fff' }}
-                >
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
-                    <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
-                    <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
-                    <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
-                  </svg>
-                  Continue with Google
-                </button>
-                <button
-                  onClick={() => { handleClose(); navigate("/login"); }}
-                  className="w-full py-3.5 text-[14px] font-semibold text-white"
-                  style={{ background: '#0a0a0a', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}
-                >
-                  Sign In with Email
-                </button>
-                <button
-                  onClick={() => setNeedsAuth(false)}
-                  className="mt-5 text-[12px] text-gray-400 hover:text-black transition-colors"
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}
-                >
-                  ← Back to form
-                </button>
-              </div>
-            ) : !isSubmitted ? (
-              <div className="p-6 md:p-10">
+            <div className="p-6 md:p-10">
                 <DialogHeader className="mb-8">
                   <DialogTitle className="font-display text-[26px] md:text-[30px] font-bold text-black flex items-center gap-2">
                     Summer Registration Form
                   </DialogTitle>
                   <DialogDescription className="text-gray-500 text-[13px] md:text-[14px]" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    Complete the details below to secure your seat for July 2026.
+                    Complete the details below — you'll be taken to Stripe to pay securely.
                   </DialogDescription>
                 </DialogHeader>
 
@@ -244,51 +180,55 @@ const RegisterSection = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="form-label flex items-center gap-1.5"><User size={12} className="text-gray-400" /> First Name *</label>
-                      <input 
-                        name="firstName" 
+                      <input
+                        name="firstName"
                         value={formData.firstName}
                         onChange={handleInputChange}
-                        className="form-field mb-0" 
-                        type="text" 
-                        placeholder="First name" 
+                        className="form-field mb-0"
+                        type="text"
+                        placeholder="First name"
                         required
+                        disabled={!!loadingStep}
                       />
                     </div>
                     <div>
                       <label className="form-label">Last Name *</label>
-                      <input 
-                        name="lastName" 
+                      <input
+                        name="lastName"
                         value={formData.lastName}
                         onChange={handleInputChange}
-                        className="form-field mb-0" 
-                        type="text" 
-                        placeholder="Last name" 
+                        className="form-field mb-0"
+                        type="text"
+                        placeholder="Last name"
                         required
+                        disabled={!!loadingStep}
                       />
                     </div>
                   </div>
 
                   <div>
                     <label className="form-label flex items-center gap-1.5"><Mail size={12} className="text-gray-400" /> Email Address *</label>
-                    <input 
-                      name="email" 
+                    <input
+                      name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="form-field mb-0" 
-                      type="email" 
-                      placeholder="you@example.com" 
+                      className="form-field mb-0"
+                      type="email"
+                      placeholder="you@example.com"
                       required
+                      disabled={!!loadingStep}
                     />
                   </div>
 
                   <div>
                     <label className="form-label flex items-center gap-1.5"><Calendar size={12} className="text-gray-400" /> Session Preference</label>
-                    <select 
-                      name="sessions" 
+                    <select
+                      name="sessions"
                       value={formData.sessions}
                       onChange={handleInputChange}
                       className="form-field mb-0"
                       style={{ background: '#fff' }}
+                      disabled={!!loadingStep}
                     >
                       <option value="both">Both Sessions — $700 (Save $100)</option>
                       <option value="session1">Session 1 only (Jul 13–16) — $400</option>
@@ -298,12 +238,13 @@ const RegisterSection = () => {
 
                   <div>
                     <label className="form-label flex items-center gap-1.5"><Code size={12} className="text-gray-400" /> Programming Experience</label>
-                    <select 
-                      name="experience" 
+                    <select
+                      name="experience"
                       value={formData.experience}
                       onChange={handleInputChange}
                       className="form-field mb-0"
                       style={{ background: '#fff' }}
+                      disabled={!!loadingStep}
                     >
                       <option value="beginner">Beginner (Basic Python knowledge)</option>
                       <option value="intermediate">Intermediate (Familiar with Python & REST APIs)</option>
@@ -313,53 +254,39 @@ const RegisterSection = () => {
 
                   <div>
                     <label className="form-label flex items-center gap-1.5"><AlignLeft size={12} className="text-gray-400" /> Background / Notes</label>
-                    <textarea 
-                      name="background" 
+                    <textarea
+                      name="background"
                       value={formData.background}
                       onChange={handleInputChange}
-                      rows={3} 
-                      className="form-field mb-0" 
-                      placeholder="Tell us what you're hoping to build with local agents..." 
+                      rows={3}
+                      className="form-field mb-0"
+                      placeholder="Tell us what you're hoping to build with local agents..."
                       style={{ resize: 'vertical' }}
+                      disabled={!!loadingStep}
                     />
                   </div>
 
                   <button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={!!loadingStep}
                     className="btn-black w-full justify-center mt-4 h-[52px]"
-                    style={{ display: 'flex', background: '#7c3aed', color: '#fff', opacity: isLoading ? 0.6 : 1 }}
+                    style={{ display: 'flex', background: '#7c3aed', color: '#fff', opacity: loadingStep ? 0.7 : 1 }}
                   >
-                    {isLoading ? "Redirecting to payment…" : user ? "Register & Pay with Stripe" : "Continue to Payment"}
+                    <CreditCard size={15} />
+                    {loadingStep === 'saving'
+                      ? 'Saving your details…'
+                      : loadingStep === 'redirecting'
+                      ? 'Redirecting to Stripe…'
+                      : 'Register & Pay with Stripe'}
                   </button>
+
+                  {loadingStep && (
+                    <p className="text-center text-[12px] text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      {loadingStep === 'saving' ? 'Step 1 of 2 — Saving registration…' : 'Step 2 of 2 — Opening secure checkout…'}
+                    </p>
+                  )}
                 </form>
               </div>
-            ) : (
-              <div className="p-10 text-center flex flex-col items-center">
-                <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-6 animate-bounce">
-                  <Sparkles size={36} strokeWidth={1.5} />
-                </div>
-                <h3 className="font-display font-bold text-[28px] mb-4 text-black">Registration Submitted!</h3>
-                <p className="text-gray-500 text-[14px] leading-relaxed max-w-[420px] mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  Thank you, <strong className="text-black">{formData.firstName}</strong>! We've successfully registered you for <strong>{getSessionsLabel(formData.sessions)}</strong>.
-                </p>
-                <div className="bg-gray-50 border border-gray-100 rounded-sm p-5 w-full text-left mb-8 space-y-2 text-[13px] text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  <div><strong>Email:</strong> {formData.email}</div>
-                  <div><strong>Session:</strong> {getSessionsLabel(formData.sessions)}</div>
-                  <div><strong>Status:</strong> Seat Held (48 Hours)</div>
-                  <div className="pt-2 text-[11px] text-purple-600 font-semibold uppercase tracking-wider">
-                    ★ We will email your pre-camp setup guide within 24 hours.
-                  </div>
-                </div>
-                <button 
-                  onClick={handleClose} 
-                  className="btn-black px-10 h-[50px]"
-                  style={{ background: '#0a0a0a' }}
-                >
-                  Okay, Got It
-                </button>
-              </div>
-            )}
           </div>
         </DialogContent>
       </Dialog>
