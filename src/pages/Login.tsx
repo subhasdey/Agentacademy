@@ -4,6 +4,7 @@ import { Layers, ArrowRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import { useGoogleLogin } from "@react-oauth/google";
+import { supabase } from "@/integrations/supabase/client";
 
 const Login = () => {
   const [tab, setTab] = useState<'login'|'signup'>('login');
@@ -11,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
   const { signIn, signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
 
@@ -140,8 +142,20 @@ const Login = () => {
 
             {tab === 'login' && (
               <div className="flex justify-end -mt-2 mb-6">
-                <button type="button" className="text-[12px] text-gray-400 hover:text-black transition-colors" style={{ background:'none', border:'none', cursor:'pointer', fontFamily:'Inter, sans-serif' }}>
-                  Forgot password?
+                <button
+                  type="button"
+                  disabled={resetSent}
+                  onClick={async () => {
+                    if (!email) { toast.error("Enter your email address first"); return; }
+                    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                      redirectTo: `${window.location.origin}/login`,
+                    });
+                    if (error) toast.error(error.message);
+                    else { setResetSent(true); toast.success("Password reset email sent!"); }
+                  }}
+                  className="text-[12px] text-gray-400 hover:text-black transition-colors"
+                  style={{ background:'none', border:'none', cursor:'pointer', fontFamily:'Inter, sans-serif' }}>
+                  {resetSent ? "Reset email sent ✓" : "Forgot password?"}
                 </button>
               </div>
             )}

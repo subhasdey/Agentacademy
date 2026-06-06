@@ -1,4 +1,4 @@
-import { Lock } from "lucide-react";
+import { Lock, ArrowRight, Check } from "lucide-react";
 
 const CheckoutSection = () => (
   <section id="checkout" className="py-20 md:py-28 bg-gray-100">
@@ -36,29 +36,34 @@ const CheckoutSection = () => (
           </div>
           <p className="text-gray-400 text-[13px] mt-5 leading-[1.7]" style={{ fontFamily: 'Inter, sans-serif' }}>30-day money-back guarantee · Secured by Stripe</p>
         </div>
+
         <div className="bg-white border border-gray-200 p-8 md:p-12">
-          <h3 className="font-display font-bold text-[22px] md:text-[24px] mb-7">Payment Details</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div><label className="form-label">First Name</label><input className="form-field" type="text" placeholder="First name" /></div>
-            <div><label className="form-label">Last Name</label><input className="form-field" type="text" placeholder="Last name" /></div>
+          <h3 className="font-display font-bold text-[22px] md:text-[24px] mb-3">Secure Payment via Stripe</h3>
+          <p className="text-gray-500 text-[14px] leading-[1.7] mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+            Payment is handled securely by Stripe. You'll be redirected to complete your purchase after registering.
+          </p>
+          <div className="space-y-3 mb-8">
+            {[
+              'No card details stored on our servers',
+              '256-bit SSL encryption via Stripe',
+              '30-day money-back guarantee',
+              'Instant confirmation email',
+            ].map(p => (
+              <div key={p} className="flex items-center gap-3 text-[14px] text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <Check size={14} className="text-emerald-500 flex-shrink-0" strokeWidth={2.5} />
+                {p}
+              </div>
+            ))}
           </div>
-          <label className="form-label">Email Address</label>
-          <input className="form-field" type="email" placeholder="you@example.com" />
-          <label className="form-label">Card Number</label>
-          <input className="form-field" type="text" placeholder="4242 4242 4242 4242" />
-          <div className="flex gap-2 mb-5 -mt-2">
+          <div className="flex gap-2 mb-8">
             {['VISA', 'MC', 'AMEX', 'UPI'].map(c => (
               <span key={c} className="border border-gray-200 text-[10px] font-bold text-gray-400 px-2.5 py-1 tracking-widest" style={{ fontFamily: 'Inter, sans-serif' }}>{c}</span>
             ))}
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div><label className="form-label">Expiry</label><input className="form-field" type="text" placeholder="MM / YY" /></div>
-            <div><label className="form-label">CVV</label><input className="form-field" type="text" placeholder="•••" /></div>
-          </div>
-          <button className="btn-black w-full justify-center mt-2 h-[52px]" style={{ display: 'flex', background: '#7c3aed' }}>
-            <Lock size={14} /> Pay $700 — Both Sessions
-          </button>
-          <p className="text-center text-[11px] text-gray-400 mt-3 tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>256-bit SSL encryption · Powered by Stripe</p>
+          <a href="#register" className="btn-black w-full justify-center h-[52px]" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#7c3aed', color: '#fff', textDecoration: 'none' }}>
+            <Lock size={14} /> Register & Pay Securely <ArrowRight size={13} />
+          </a>
+          <p className="text-center text-[11px] text-gray-400 mt-3 tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>Powered by Stripe · No account required</p>
         </div>
       </div>
     </div>
